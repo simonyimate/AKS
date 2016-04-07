@@ -58,12 +58,15 @@ public class Akskomentar implements Serializable {
 		this.ocena = ocena;
 	}
 
-	public byte getProdavack() {
-		return this.prodavack;
+	public boolean getProdavack() {
+		return this.prodavack!=0;
 	}
 
-	public void setProdavack(byte prodavack) {
-		this.prodavack = prodavack;
+	public void setProdavack(boolean prodavack) {
+		byte pro2=1;
+		if (prodavack==false)
+			pro2=0;
+		this.prodavack = pro2;
 	}
 
 	public String getTekstk() {

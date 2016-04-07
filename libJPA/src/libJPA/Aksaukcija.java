@@ -61,12 +61,15 @@ public class Aksaukcija implements Serializable {
 		this.aukcijaId = aukcijaId;
 	}
 
-	public byte getUspesna() {
-		return this.uspesna;
+	public boolean getUspesna() {
+		return this.uspesna!=0;
 	}
 
-	public void setUspesna(byte uspesna) {
-		this.uspesna = uspesna;
+	public void setUspesna(boolean uspesna) {
+		byte usp2=1;
+		if (uspesna==false)
+			usp2=0;
+		this.uspesna = usp2;
 	}
 
 	public String getVreme() {
