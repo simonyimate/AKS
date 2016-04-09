@@ -25,7 +25,8 @@ public class Akspredmet implements Serializable {
 
 	@Column(name="POCETNA_CENA")
 	private float pocetnaCena;
-
+	
+	//TODO Menjati za sliku
 	private int slika;
 
 	private String stanje;

@@ -48,12 +48,15 @@ public class Aksporuka implements Serializable {
 		this.datump = datump;
 	}
 
-	public byte getProdavacp() {
-		return this.prodavacp;
+	public boolean getProdavacp() {
+		return this.prodavacp!=0;
 	}
 
-	public void setProdavacp(byte prodavacp) {
-		this.prodavacp = prodavacp;
+	public void setProdavacp(boolean prodavacp) {
+		byte pro=1;
+		if (prodavacp==false)
+			pro=0;
+		this.prodavacp = pro;
 	}
 
 	public String getTekstp() {
