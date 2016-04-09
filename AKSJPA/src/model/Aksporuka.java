@@ -53,10 +53,10 @@ public class Aksporuka implements Serializable {
 	}
 
 	public void setProdavacp(boolean prodavacp) {
-		byte pro=1;
-		if (prodavacp==false)
-			pro=0;
-		this.prodavacp = pro;
+		if (prodavacp)
+			this.prodavacp = 1;
+		else
+			this.prodavacp=0;
 	}
 
 	public String getTekstp() {

@@ -97,7 +97,7 @@ EntityManager em;
     	p.setPocetnaCena(pocetnaCena);
     	p.setStanje(stanje);
     	//TODO slika from pathslika
-    	int slika=0; //DELETE IT LATER
+    	byte[] slika=null; //DELETE IT LATER
     	p.setSlika(slika);
     	em.persist(p);
 		return p;
@@ -223,20 +223,22 @@ EntityManager em;
     
     public List<Aksaukcija> aukcijeNazivCenaSve(String naziv, float c1, float c2){
     	TypedQuery<Aksaukcija> query = em.createQuery
-    									("SELECT auk FROM Aksaukcija auk WHERE (auk.akspredmet.naziv LIKE '%:naziv%' AND auk.akspredmet.stanje LIKE ':stanje') ORDER BY auk.vreme",
+    									("SELECT auk FROM Aksaukcija auk WHERE (auk.akspredmet.naziv LIKE '%:naziv%' AND auk.najvecaponuda>:c1 AND auk.najvecaponuda<:c2) ORDER BY auk.vreme",
                 Aksaukcija.class);
     	query.setParameter("naziv", naziv);
-    	//TODO
+    	query.setParameter("c1", c1-0.01);
+    	query.setParameter("c2", c2+0.01);
         List<Aksaukcija> list = query.getResultList(); 
         return list;
     }
     
     public List<Aksaukcija> aukcijeNazivCenaAktivne(String naziv, float c1, float c2){
     	TypedQuery<Aksaukcija> query = em.createQuery
-    									("SELECT auk FROM Aksaukcija auk WHERE (auk.akspredmet.naziv LIKE '%:naziv%' AND auk.akspredmet.stanje LIKE ':stanje' AND auk.vreme>:vreme) ORDER BY auk.vreme",
+    									("SELECT auk FROM Aksaukcija auk WHERE (auk.akspredmet.naziv LIKE '%:naziv%' AND auk.najvecaponuda>:c1 AND auk.najvecaponuda<:c2 AND auk.vreme>:vreme) ORDER BY auk.vreme",
                 Aksaukcija.class);
     	query.setParameter("naziv", naziv);
-    	//TODO
+    	query.setParameter("c1", c1-0.01);
+    	query.setParameter("c2", c2+0.01);
     	Date d=new Date();
     	d.setTime(d.getTime());
     	SimpleDateFormat ft = new SimpleDateFormat ("yyyy.MM.dd HH:mm:ss");
@@ -248,10 +250,11 @@ EntityManager em;
     
     public List<Aksaukcija> aukcijeNazivCenaZavrsene(String naziv, float c1, float c2){
     	TypedQuery<Aksaukcija> query = em.createQuery
-    									("SELECT auk FROM Aksaukcija auk WHERE (auk.akspredmet.naziv LIKE '%:naziv%' AND auk.akspredmet.stanje LIKE ':stanje' AND auk.vreme<:vreme) ORDER BY auk.vreme",
+    									("SELECT auk FROM Aksaukcija auk WHERE (auk.akspredmet.naziv LIKE '%:naziv%' AND auk.najvecaponuda>:c1 AND auk.najvecaponuda<:c2 AND auk.vreme<:vreme) ORDER BY auk.vreme",
                 Aksaukcija.class);
     	query.setParameter("naziv", naziv);
-    	//TODO
+    	query.setParameter("c1", c1-0.01);
+    	query.setParameter("c2", c2+0.01);
     	Date d=new Date();
     	d.setTime(d.getTime());
     	SimpleDateFormat ft = new SimpleDateFormat ("yyyy.MM.dd HH:mm:ss");

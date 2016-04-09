@@ -25,9 +25,9 @@ public class Akspredmet implements Serializable {
 
 	@Column(name="POCETNA_CENA")
 	private float pocetnaCena;
-	
-	//TODO Menjati za sliku
-	private int slika;
+
+	@Lob
+	private byte[] slika;
 
 	private String stanje;
 
@@ -70,11 +70,11 @@ public class Akspredmet implements Serializable {
 		this.pocetnaCena = pocetnaCena;
 	}
 
-	public int getSlika() {
+	public byte[] getSlika() {
 		return this.slika;
 	}
 
-	public void setSlika(int slika) {
+	public void setSlika(byte[] slika) {
 		this.slika = slika;
 	}
 

@@ -19,20 +19,20 @@ public class Aksaukcija implements Serializable {
 	@Column(name="AUKCIJA_ID")
 	private int aukcijaId;
 
+	private float najvecaponuda;
+
 	private byte uspesna;
-	
-	//TODO ADD maxPonuda
 
 	private String vreme;
 
 	//bi-directional many-to-one association to Akskorisnik
 	@ManyToOne
-	@JoinColumn(name="AKS_USERNAME")
+	@JoinColumn(name="USERNAME")
 	private Akskorisnik akskorisnik1;
 
 	//bi-directional many-to-one association to Akskorisnik
 	@ManyToOne
-	@JoinColumn(name="USERNAME")
+	@JoinColumn(name="AKS_USERNAME")
 	private Akskorisnik akskorisnik2;
 
 	//bi-directional many-to-one association to Akspredmet
@@ -63,15 +63,23 @@ public class Aksaukcija implements Serializable {
 		this.aukcijaId = aukcijaId;
 	}
 
+	public float getNajvecaponuda() {
+		return this.najvecaponuda;
+	}
+
+	public void setNajvecaponuda(float najvecaponuda) {
+		this.najvecaponuda = najvecaponuda;
+	}
+
 	public boolean getUspesna() {
 		return this.uspesna!=0;
 	}
 
 	public void setUspesna(boolean uspesna) {
-		byte usp2=1;
-		if (uspesna==false)
-			usp2=0;
-		this.uspesna = usp2;
+		if (uspesna)
+			this.uspesna = 1;
+		else
+			this.uspesna=0;
 	}
 
 	public String getVreme() {

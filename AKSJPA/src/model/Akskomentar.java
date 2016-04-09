@@ -63,10 +63,10 @@ public class Akskomentar implements Serializable {
 	}
 
 	public void setProdavack(boolean prodavack) {
-		byte pro=1;
-		if (prodavack==false)
-			pro=0;
-		this.prodavack = pro;
+		if (prodavack)
+			this.prodavack = 1;
+		else
+			this.prodavack=0;
 	}
 
 	public String getTekstk() {

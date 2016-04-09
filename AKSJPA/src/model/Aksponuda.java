@@ -20,15 +20,15 @@ public class Aksponuda implements Serializable {
 
 	private float vrednost;
 
-	//bi-directional many-to-one association to Akskorisnik
-	@ManyToOne
-	@JoinColumn(name="USERNAME")
-	private Akskorisnik akskorisnik;
-
 	//bi-directional many-to-one association to Aksaukcija
 	@ManyToOne
 	@JoinColumn(name="AUKCIJA_ID")
 	private Aksaukcija aksaukcija;
+
+	//bi-directional many-to-one association to Akskorisnik
+	@ManyToOne
+	@JoinColumn(name="USERNAME")
+	private Akskorisnik akskorisnik;
 
 	public Aksponuda() {
 	}
@@ -49,20 +49,20 @@ public class Aksponuda implements Serializable {
 		this.vrednost = vrednost;
 	}
 
-	public Akskorisnik getAkskorisnik() {
-		return this.akskorisnik;
-	}
-
-	public void setAkskorisnik(Akskorisnik akskorisnik) {
-		this.akskorisnik = akskorisnik;
-	}
-
 	public Aksaukcija getAksaukcija() {
 		return this.aksaukcija;
 	}
 
 	public void setAksaukcija(Aksaukcija aksaukcija) {
 		this.aksaukcija = aksaukcija;
+	}
+
+	public Akskorisnik getAkskorisnik() {
+		return this.akskorisnik;
+	}
+
+	public void setAkskorisnik(Akskorisnik akskorisnik) {
+		this.akskorisnik = akskorisnik;
 	}
 
 }
