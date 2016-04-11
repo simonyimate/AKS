@@ -1,5 +1,7 @@
 package bean;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
@@ -103,8 +105,18 @@ public class AksMain implements AksMainRemote, AksMainLocal {
     	p.setPocetnaCena(pocetnaCena);
     	p.setStanje(stanje);
     	//TODO slika from pathslika
-    	byte[] slika=new byte[300]; //DELETE IT LATER
-    	p.setSlika(slika);
+    	//byte[] slika=new byte[300]; //DELETE IT LATER
+    	File file = new File(pathSlika);
+        byte[] imageData  = new byte[(int) file.length()];
+        
+        try {
+            FileInputStream fileInputStream = new FileInputStream(file);
+            fileInputStream.read(imageData);
+            fileInputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    	p.setSlika(imageData);
     	em.persist(p);
 		return p;
     }
