@@ -29,7 +29,7 @@ public class MainServlet extends HttpServlet {
 	List<Aksaukcija> aukcije=new ArrayList<Aksaukcija>();
        
     /**
-     * @see HttpServlet#HttpServlet()
+     * @see HttpServlet#HttpServlet() 
      */
     public MainServlet() {
         super();
