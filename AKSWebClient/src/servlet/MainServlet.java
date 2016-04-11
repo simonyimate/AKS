@@ -219,7 +219,7 @@ public class MainServlet extends HttpServlet {
 						request.setAttribute("kreiranje", "Kreiranje je uspesno");
 					}
 				 RequestDispatcher rd =  getServletContext().getRequestDispatcher("/unosAukcije.jsp");
-				 rd.forward(request, response);
+				 rd.forward(request, response); 
 			 }
 	}
 
