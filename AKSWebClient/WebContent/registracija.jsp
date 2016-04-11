@@ -8,12 +8,14 @@
 </head>
 <body>
 <form action="/AKSWebClient/MainServlet" method="get">
-		Ime: <input type="text" name="ime">
-		Prezime: <input type="text" name="prezime">
-		UserName: <input type="text" name="userName">
-		<input type="hidden" name="type" value="registracija"> 
-		Password: <input type="text" name="password">
-		email: <input type="text" name="email">
+		<table>
+		<tr><td>Ime: </td><td><input type="text" name="ime"></td></tr>
+		<tr><td>Prezime: </td><td><input type="text" name="prezime"></td></tr>
+		<tr><td>UserName: </td><td><input type="text" name="userName"></td></tr>
+		<input type="hidden" name="type" value="registracija"> </td></tr>
+		<tr><td>Password: </td><td><input type="text" name="password"></td></tr>
+		<tr><td>E-mail: </td><td><input type="text" name="email"></td></tr>
+		</table>
 	<input type="submit" value="Registracija"> 
 </form>
 	Registracija je : <%=request.getAttribute("result")%>
