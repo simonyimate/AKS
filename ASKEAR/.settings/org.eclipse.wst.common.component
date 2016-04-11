@@ -4,7 +4,11 @@
         <dependent-module archiveName="AKSJPA.jar" deploy-path="/lib" handle="module:/resource/AKSJPA/AKSJPA">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="AKSMain.war" deploy-path="/" handle="module:/resource/AKSMain/AKSMain">
+        <dependent-module archiveName="AKSWebClient.war" deploy-path="/" handle="module:/resource/AKSWebClient/AKSWebClient">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="AKSEJB.jar" deploy-path="/" handle="module:/resource/AKSEJB/AKSEJB">
             <dependent-object/>
             <dependency-type>uses</dependency-type>
         </dependent-module>

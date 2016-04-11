@@ -3,8 +3,9 @@
 	<name>ASKEAR</name>
 	<comment></comment>
 	<projects>
+		<project>AKSEJB</project>
 		<project>AKSJPA</project>
-		<project>AKSMain</project>
+		<project>AKSWebClient</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
