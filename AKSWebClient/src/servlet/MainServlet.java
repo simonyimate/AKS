@@ -55,7 +55,7 @@ public class MainServlet extends HttpServlet {
 			 try{
 				 InitialContext ic = new InitialContext();
 				 cartBean = (AksMainLocal)
-						 ic.lookup("java:global/ASKEAR/AKSEJB/AksMain!bean.AksMainLocal");
+						 ic.lookup("java:global/AKSEAR2/AKSEJB/AksMain!bean.AksMainLocal");
 				 //
 				 request.getSession().setAttribute(CART_SESSION_KEY, cartBean);
 				 
@@ -113,14 +113,18 @@ public class MainServlet extends HttpServlet {
 				 String tip1= request.getParameter("tip1");
 				 String tip2= request.getParameter("tip2");
 				 if(tip1.equals("sve")&&tip2.equals("naziv")){
+					 System.out.println("Bean NAZIV+SVE FIRST");
 					 String naziv=request.getParameter("naziv");
+					 System.out.println("Bean NAZIV+SVE PARAMETER");
 					 aukcije=cartBean.aukcijeNazivSve(naziv);
+					 System.out.println("Bean NAZIV+SVE LIST");
 					 request.setAttribute("aukcije", aukcije);
 					 RequestDispatcher rd =  getServletContext().getRequestDispatcher("/Izlistaj.jsp");
 						rd.forward(request, response);
 				 }else if(tip1.equals("sve")&&tip2.equals("nazivVlasnik")){
 					 String naziv=request.getParameter("naziv");
-					 aukcije=cartBean.aukcijeNazivVlasnikSve(naziv, result.toString());
+					 String vlasnik=request.getParameter("vlasnik");
+					 aukcije=cartBean.aukcijeNazivVlasnikSve(naziv, vlasnik);
 					 request.setAttribute("aukcije", aukcije);
 					 RequestDispatcher rd =  getServletContext().getRequestDispatcher("/Izlistaj.jsp");
 						rd.forward(request, response);
@@ -149,7 +153,8 @@ public class MainServlet extends HttpServlet {
 						rd.forward(request, response);
 				 }else if(tip1.equals("aktivna")&&tip2.equals("nazivVlasnik")){
 					 String naziv=request.getParameter("naziv");
-					 aukcije=cartBean.aukcijeNazivVlasnikAktivne(naziv, result.toString());
+					 String vlasnik=request.getParameter("vlasnik");
+					 aukcije=cartBean.aukcijeNazivVlasnikAktivne(naziv, vlasnik);
 					 request.setAttribute("aukcije", aukcije);
 					 RequestDispatcher rd =  getServletContext().getRequestDispatcher("/Izlistaj.jsp");
 						rd.forward(request, response);
@@ -178,7 +183,8 @@ public class MainServlet extends HttpServlet {
 						rd.forward(request, response);
 				 }else if(tip1.equals("zavrsena")&&tip2.equals("nazivVlasnik")){
 					 String naziv=request.getParameter("naziv");
-					 aukcije=cartBean.aukcijeNazivVlasnikZavrsene(naziv,result.toString());
+					 String vlasnik=request.getParameter("vlasnik");
+					 aukcije=cartBean.aukcijeNazivVlasnikZavrsene(naziv,vlasnik);
 					 request.setAttribute("aukcije", aukcije);
 					 RequestDispatcher rd =  getServletContext().getRequestDispatcher("/Izlistaj.jsp");
 						rd.forward(request, response);

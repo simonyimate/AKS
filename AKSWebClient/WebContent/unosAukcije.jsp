@@ -16,7 +16,11 @@
 		<br>
 			Naziv:<input type="text" name="naziv">
 			Opis:<input type="text" name="opis">
-			Stanje:<input type="text" name="stanje">
+			<select name="stanje">
+				<option value="novo">novo</option>
+				<option value="polovno">polovno</option>
+				<option value="neispravno">neispravno</option>
+			</select>
 			Pocetna Cena:<input type="text" name="pocetnaCena">
 			Path slika:<input type="text" name="slika">
 		

@@ -8,12 +8,14 @@
 </head>
 <body>
 <form action="/AKSWebClient/MainServlet" method="get">
-		UserName: <input type="text" name="userName">
-		<input type="hidden" name="type" value="login"> 
-		Password: <input type="text" name="password">
+		<table>
+		<tr><td>UserName:  </td><td><input type="text" name="userName"></td></tr>
+		<input type="hidden" name="type" value="login">
+		<tr><td>Password:  </td><td><input type="text" name="password"></td></tr>
+		</table>
 	<input type="submit" value="Login"> 
 </form>
-	Logovanje je : <%=request.getAttribute("result")%>
+	<%--Logovanje je : <%=request.getAttribute("result")%> --%>
 <form action="/AKSWebClient/index.jsp" method="get">
 		<input type="submit" value="NAZAD"> 
 		</form>

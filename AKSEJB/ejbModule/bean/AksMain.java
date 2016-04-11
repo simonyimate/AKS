@@ -47,15 +47,19 @@ public class AksMain implements AksMainRemote, AksMainLocal {
     		kor2.setPassword(password);
     		kor2.setPrezime(prezime);
     		kor2.setUsername(username);
-    		em.persist(kor2);
+    		em.merge(kor2);
     		return kor2;
     	}
     	return null;
     }
 	public Akskorisnik login(String username, String password){
+		System.out.println(username);
+		System.out.println(password);
     	Akskorisnik kor2=em.find(Akskorisnik.class, username);
-    	if (kor2==null)
+    	if (kor2!=null)
     	{
+    		System.out.println("NOT NULL");
+    		System.out.println(kor2.getIme()+""+kor2.getPrezime());
     		if (kor2.getPassword().equals(password))
     		{	
     			user=kor2;
@@ -80,6 +84,7 @@ public class AksMain implements AksMainRemote, AksMainLocal {
     	a.setAksporukas(new LinkedList<Aksporuka>());
     	a.setAkspredmet(predmet);
     	a.setUspesna(false);
+    	a.setNajvecaponuda(predmet.getPocetnaCena());
     	int duzina=24*dan+sat;
     	Date d=new Date();
     	d.setTime(d.getTime()+3600*1000*duzina);
@@ -98,7 +103,7 @@ public class AksMain implements AksMainRemote, AksMainLocal {
     	p.setPocetnaCena(pocetnaCena);
     	p.setStanje(stanje);
     	//TODO slika from pathslika
-    	byte[] slika=null; //DELETE IT LATER
+    	byte[] slika=new byte[300]; //DELETE IT LATER
     	p.setSlika(slika);
     	em.persist(p);
 		return p;
@@ -107,18 +112,23 @@ public class AksMain implements AksMainRemote, AksMainLocal {
     
     public List<Aksaukcija> aukcijeNazivSve(String naziv){
     	TypedQuery<Aksaukcija> query = em.createQuery
-    									("SELECT auk FROM Aksaukcija auk WHERE auk.akspredmet.naziv LIKE '%:naziv%' ORDER BY auk.vreme",
+    									("SELECT auk FROM Aksaukcija auk WHERE auk.akspredmet.naziv LIKE :naziv ORDER BY auk.vreme",
                 Aksaukcija.class);
-    	query.setParameter("naziv", naziv);
-        List<Aksaukcija> list = query.getResultList(); 
+    	query.setParameter("naziv", "%"+naziv+"%");
+        List<Aksaukcija> list = query.getResultList();
+        System.out.println("List in the aukcijeNazivSve");
+        for (Aksaukcija aksaukcija : list) {
+			System.out.println(aksaukcija.getAkspredmet().getNaziv());
+			System.out.println(aksaukcija.getAkspredmet().getPredmetId());
+		}
         return list;
     }
     
     public List<Aksaukcija> aukcijeNazivAktivne(String naziv){
     	TypedQuery<Aksaukcija> query = em.createQuery
-    									("SELECT auk FROM Aksaukcija auk WHERE (auk.akspredmet.naziv LIKE '%:naziv%' AND auk.vreme>:vreme) ORDER BY auk.vreme",
+    									("SELECT auk FROM Aksaukcija auk WHERE (auk.akspredmet.naziv LIKE :naziv AND auk.vreme>:vreme) ORDER BY auk.vreme",
                 Aksaukcija.class);
-    	query.setParameter("naziv", naziv);
+    	query.setParameter("naziv", "%"+naziv+"%");
     	Date d=new Date();
     	d.setTime(d.getTime());
     	SimpleDateFormat ft = new SimpleDateFormat ("yyyy.MM.dd HH:mm:ss");
@@ -130,9 +140,9 @@ public class AksMain implements AksMainRemote, AksMainLocal {
     
     public List<Aksaukcija> aukcijeNazivZavrsene(String naziv){
     	TypedQuery<Aksaukcija> query = em.createQuery
-    									("SELECT auk FROM Aksaukcija auk WHERE (auk.akspredmet.naziv LIKE '%:naziv%' AND auk.vreme<:vreme) ORDER BY auk.vreme",
+    									("SELECT auk FROM Aksaukcija auk WHERE (auk.akspredmet.naziv LIKE :naziv AND auk.vreme<:vreme) ORDER BY auk.vreme",
                 Aksaukcija.class);
-    	query.setParameter("naziv", naziv);
+    	query.setParameter("naziv", "%"+naziv+"%");
     	Date d=new Date();
     	d.setTime(d.getTime());
     	SimpleDateFormat ft = new SimpleDateFormat ("yyyy.MM.dd HH:mm:ss");
@@ -144,20 +154,20 @@ public class AksMain implements AksMainRemote, AksMainLocal {
     
     public List<Aksaukcija> aukcijeNazivVlasnikSve(String naziv, String vlasnik){
     	TypedQuery<Aksaukcija> query = em.createQuery
-    									("SELECT auk FROM Aksaukcija auk WHERE (auk.akspredmet.naziv LIKE '%:naziv%' AND auk.akskorisnik1.username LIKE '%:vlasnik%') ORDER BY auk.vreme",
+    									("SELECT auk FROM Aksaukcija auk WHERE (auk.akspredmet.naziv LIKE :naziv AND auk.akskorisnik1.username LIKE :vlasnik) ORDER BY auk.vreme",
                 Aksaukcija.class);
-    	query.setParameter("naziv", naziv);
-    	query.setParameter("vlasnik", user.toString());
+    	query.setParameter("naziv", "%"+naziv+"%");
+    	query.setParameter("vlasnik", "%"+vlasnik+"%");
         List<Aksaukcija> list = query.getResultList(); 
         return list;
     }
     
     public List<Aksaukcija> aukcijeNazivVlasnikAktivne(String naziv, String vlasnik){
     	TypedQuery<Aksaukcija> query = em.createQuery
-    									("SELECT auk FROM Aksaukcija auk WHERE (auk.akspredmet.naziv LIKE '%:naziv%' AND auk.akskorisnik1.username LIKE '%:vlasnik%' AND auk.vreme>:vreme) ORDER BY auk.vreme",
+    									("SELECT auk FROM Aksaukcija auk WHERE (auk.akspredmet.naziv LIKE :naziv AND auk.akskorisnik1.username LIKE :vlasnik AND auk.vreme>:vreme) ORDER BY auk.vreme",
                 Aksaukcija.class);
-    	query.setParameter("naziv", naziv);
-    	query.setParameter("vlasnik", user.toString());
+    	query.setParameter("naziv", "%"+naziv+"%");
+    	query.setParameter("vlasnik", "%"+vlasnik+"%");
     	Date d=new Date();
     	d.setTime(d.getTime());
     	SimpleDateFormat ft = new SimpleDateFormat ("yyyy.MM.dd HH:mm:ss");
@@ -169,10 +179,10 @@ public class AksMain implements AksMainRemote, AksMainLocal {
     
     public List<Aksaukcija> aukcijeNazivVlasnikZavrsene(String naziv, String vlasnik){
     	TypedQuery<Aksaukcija> query = em.createQuery
-    									("SELECT auk FROM Aksaukcija auk WHERE (auk.akspredmet.naziv LIKE '%:naziv%' AND auk.akskorisnik1.username LIKE '%:vlasnik%' AND auk.vreme<:vreme) ORDER BY auk.vreme",
+    									("SELECT auk FROM Aksaukcija auk WHERE (auk.akspredmet.naziv LIKE :naziv AND auk.akskorisnik1.username LIKE :vlasnik AND auk.vreme<:vreme) ORDER BY auk.vreme",
                 Aksaukcija.class);
-    	query.setParameter("naziv", naziv);
-    	query.setParameter("vlasnik", user.toString());
+    	query.setParameter("naziv", "%"+naziv+"%");
+    	query.setParameter("vlasnik", "%"+vlasnik+"%");
     	Date d=new Date();
     	d.setTime(d.getTime());
     	SimpleDateFormat ft = new SimpleDateFormat ("yyyy.MM.dd HH:mm:ss");
@@ -184,9 +194,9 @@ public class AksMain implements AksMainRemote, AksMainLocal {
     
     public List<Aksaukcija> aukcijeNazivStanjeSve(String naziv, String stanje){
     	TypedQuery<Aksaukcija> query = em.createQuery
-    									("SELECT auk FROM Aksaukcija auk WHERE (auk.akspredmet.naziv LIKE '%:naziv%' AND auk.akspredmet.stanje LIKE ':stanje') ORDER BY auk.vreme",
+    									("SELECT auk FROM Aksaukcija auk WHERE (auk.akspredmet.naziv LIKE :naziv AND auk.akspredmet.stanje LIKE :stanje) ORDER BY auk.vreme",
                 Aksaukcija.class);
-    	query.setParameter("naziv", naziv);
+    	query.setParameter("naziv", "%"+naziv+"%");
     	query.setParameter("stanje", stanje);
         List<Aksaukcija> list = query.getResultList(); 
         return list;
@@ -194,9 +204,9 @@ public class AksMain implements AksMainRemote, AksMainLocal {
     
     public List<Aksaukcija> aukcijeNazivStanjeAktivne(String naziv, String stanje){
     	TypedQuery<Aksaukcija> query = em.createQuery
-    									("SELECT auk FROM Aksaukcija auk WHERE (auk.akspredmet.naziv LIKE '%:naziv%' AND auk.akspredmet.stanje LIKE ':stanje' AND auk.vreme>:vreme) ORDER BY auk.vreme",
+    									("SELECT auk FROM Aksaukcija auk WHERE (auk.akspredmet.naziv LIKE :naziv AND auk.akspredmet.stanje LIKE :stanje AND auk.vreme>:vreme) ORDER BY auk.vreme",
                 Aksaukcija.class);
-    	query.setParameter("naziv", naziv);
+    	query.setParameter("naziv", "%"+naziv+"%");
     	query.setParameter("stanje", stanje);
     	Date d=new Date();
     	d.setTime(d.getTime());
@@ -209,9 +219,9 @@ public class AksMain implements AksMainRemote, AksMainLocal {
     
     public List<Aksaukcija> aukcijeNazivStanjeZavrsene(String naziv, String stanje){
     	TypedQuery<Aksaukcija> query = em.createQuery
-    									("SELECT auk FROM Aksaukcija auk WHERE (auk.akspredmet.naziv LIKE '%:naziv%' AND auk.akspredmet.stanje LIKE ':stanje' AND auk.vreme<:vreme) ORDER BY auk.vreme",
+    									("SELECT auk FROM Aksaukcija auk WHERE (auk.akspredmet.naziv LIKE :naziv AND auk.akspredmet.stanje LIKE :stanje AND auk.vreme<:vreme) ORDER BY auk.vreme",
                 Aksaukcija.class);
-    	query.setParameter("naziv", naziv);
+    	query.setParameter("naziv", "%"+naziv+"%");
     	query.setParameter("stanje", stanje);
     	Date d=new Date();
     	d.setTime(d.getTime());
@@ -224,22 +234,22 @@ public class AksMain implements AksMainRemote, AksMainLocal {
     
     public List<Aksaukcija> aukcijeNazivCenaSve(String naziv, float c1, float c2){
     	TypedQuery<Aksaukcija> query = em.createQuery
-    									("SELECT auk FROM Aksaukcija auk WHERE (auk.akspredmet.naziv LIKE '%:naziv%' AND auk.najvecaponuda>:c1 AND auk.najvecaponuda<:c2) ORDER BY auk.vreme",
+    									("SELECT auk FROM Aksaukcija auk WHERE (auk.akspredmet.naziv LIKE :naziv AND auk.najvecaponuda>:c1 AND auk.najvecaponuda<:c2) ORDER BY auk.vreme",
                 Aksaukcija.class);
-    	query.setParameter("naziv", naziv);
-    	query.setParameter("c1", c1-0.01);
-    	query.setParameter("c2", c2+0.01);
+    	query.setParameter("naziv", "%"+naziv+"%");
+    	query.setParameter("c1", c1-0.01f);
+    	query.setParameter("c2", c2+0.01f);
         List<Aksaukcija> list = query.getResultList(); 
         return list;
     }
     
     public List<Aksaukcija> aukcijeNazivCenaAktivne(String naziv, float c1, float c2){
     	TypedQuery<Aksaukcija> query = em.createQuery
-    									("SELECT auk FROM Aksaukcija auk WHERE (auk.akspredmet.naziv LIKE '%:naziv%' AND auk.najvecaponuda>:c1 AND auk.najvecaponuda<:c2 AND auk.vreme>:vreme) ORDER BY auk.vreme",
+    									("SELECT auk FROM Aksaukcija auk WHERE (auk.akspredmet.naziv LIKE :naziv AND auk.najvecaponuda>:c1 AND auk.najvecaponuda<:c2 AND auk.vreme>:vreme) ORDER BY auk.vreme",
                 Aksaukcija.class);
-    	query.setParameter("naziv", naziv);
-    	query.setParameter("c1", c1-0.01);
-    	query.setParameter("c2", c2+0.01);
+    	query.setParameter("naziv", "%"+naziv+"%");
+    	query.setParameter("c1", c1-0.01f);
+    	query.setParameter("c2", c2+0.01f);
     	Date d=new Date();
     	d.setTime(d.getTime());
     	SimpleDateFormat ft = new SimpleDateFormat ("yyyy.MM.dd HH:mm:ss");
@@ -251,11 +261,11 @@ public class AksMain implements AksMainRemote, AksMainLocal {
     
     public List<Aksaukcija> aukcijeNazivCenaZavrsene(String naziv, float c1, float c2){
     	TypedQuery<Aksaukcija> query = em.createQuery
-    									("SELECT auk FROM Aksaukcija auk WHERE (auk.akspredmet.naziv LIKE '%:naziv%' AND auk.najvecaponuda>:c1 AND auk.najvecaponuda<:c2 AND auk.vreme<:vreme) ORDER BY auk.vreme",
+    									("SELECT auk FROM Aksaukcija auk WHERE (auk.akspredmet.naziv LIKE :naziv AND auk.najvecaponuda>:c1 AND auk.najvecaponuda<:c2 AND auk.vreme<:vreme) ORDER BY auk.vreme",
                 Aksaukcija.class);
-    	query.setParameter("naziv", naziv);
-    	query.setParameter("c1", c1-0.01);
-    	query.setParameter("c2", c2+0.01);
+    	query.setParameter("naziv", "%"+naziv+"%");
+    	query.setParameter("c1", c1-0.01f);
+    	query.setParameter("c2", c2+0.01f);
     	Date d=new Date();
     	d.setTime(d.getTime());
     	SimpleDateFormat ft = new SimpleDateFormat ("yyyy.MM.dd HH:mm:ss");
