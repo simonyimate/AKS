@@ -10,9 +10,11 @@
 <body>
 <form action="/AKSWebClient/MainServlet" method="get">
 		
-		Dan: <input type="text" name="dan">
-		Sat:<input type="text" name="sat">
+		
+		<hr>
+		<br>
 		Predmet:
+		<br>
 		<br>
 			Naziv:<input type="text" name="naziv">
 			Opis:<input type="text" name="opis">
@@ -22,13 +24,23 @@
 				<option value="neispravno">neispravno</option>
 			</select>
 			Pocetna Cena:<input type="text" name="pocetnaCena">
-			Path slika:<input type="text" name="slika">
-		
+			Path slike:<input type="text" name="slika">
+			<hr>
+			Dodatne informacije o aukciji:<br>
+			Dan: <input type="text" name="dan">
+			Sat:<input type="text" name="sat">
+		<br>
+		<br>
 	<input type="hidden" name="type" value="aukcija"> 
 	<input type="submit" value="Kreiraj aukciju">
+	<br>
+	<c:if test="${!empty kreiranje}"> 
+	Rezultat : <%=request.getAttribute("kreiranje")%>
+	</c:if>
 	
 </form>
 	<form action="/AKSWebClient/index.jsp" method="get">
+		<br>
 		<input type="submit" value="NAZAD"> 
 	</form>
 </body>

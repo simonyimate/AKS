@@ -55,7 +55,7 @@ public class MainServlet extends HttpServlet {
 			 try{
 				 InitialContext ic = new InitialContext();
 				 cartBean = (AksMainLocal)
-						 ic.lookup("java:global/AKSEAR2/AKSEJB/AksMain!bean.AksMainLocal");
+						 ic.lookup("java:global/ASKEAR/AKSEJB/AksMain!bean.AksMainLocal");
 				 //
 				 request.getSession().setAttribute(CART_SESSION_KEY, cartBean);
 				 
@@ -220,9 +220,9 @@ public class MainServlet extends HttpServlet {
 					int sat=Integer.parseInt(satS);
 					Aksaukcija aukc=cartBean.novaAukcija(result, predmet, dan, sat);
 					if(aukc==null){
-						request.setAttribute("kreiranje", "Kreiranje nije uspesno");
+						request.setAttribute("kreiranje", "Aukcija nije uspesno unesena");
 					}else{
-						request.setAttribute("kreiranje", "Kreiranje je uspesno");
+						request.setAttribute("kreiranje", "Aukcija je uspesno uneta");
 					}
 				 RequestDispatcher rd =  getServletContext().getRequestDispatcher("/unosAukcije.jsp");
 				 rd.forward(request, response); 
