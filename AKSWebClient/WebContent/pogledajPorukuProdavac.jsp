@@ -7,6 +7,16 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+Poruke:
+  		<thead><td>Datum Poruke</td><td>Tekst Poruke</td><td>Aukcija za koju se odnosi</td><td>Ko je poslao</td></thead>
+  			<c:forEach var="p" items="${poruke}">
+  			<tr>
+  				<td>${p.datump}</td>
+  				<td>${p.tekstp}</td>
+  				<td>${p.aksaukcija.akspredmet.naziv}</td>
+  				<td>${p.aksaukcija.akskorisnik1.username}</td>
+  			</tr>
+  			</c:forEach>
+  		</table>
 </body>
 </html>
