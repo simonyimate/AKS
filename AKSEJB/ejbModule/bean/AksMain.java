@@ -121,6 +121,82 @@ public class AksMain implements AksMainRemote, AksMainLocal {
 		return p;
     }
     
+    public Aksponuda novaPonuda(String username, int aukcijaId, float vrednost){
+    	Akskorisnik kor=em.find(Akskorisnik.class, username);
+    	if (kor!=null)
+    	{
+    		Aksaukcija auk=em.find(Aksaukcija.class, aukcijaId);
+        	if (auk!=null)
+        	{
+        		if(auk.getNajvecaponuda()<vrednost)
+        		{
+        			Aksponuda pon=new Aksponuda();
+        			pon.setAksaukcija(auk);
+        			pon.setAkskorisnik(kor);
+        			pon.setVrednost(vrednost);
+        			List<Aksponuda> list=auk.getAksponudas();
+        			list.add(pon);
+        			auk.setAksponudas(list);
+        			auk.setNajvecaponuda(vrednost);
+        			em.merge(pon);
+        			em.merge(auk);
+        			return pon;
+        		}
+        		else
+        		{
+        			Aksponuda pon=new Aksponuda();
+        			pon.setVrednost(-1.0f);
+        			return pon;
+        		}
+        	}
+    	}
+    	return null;
+    }
+    
+    public Aksporuka novaPorukaP(int aukcijaId, String text){
+    	Aksaukcija auk=em.find(Aksaukcija.class, aukcijaId);
+        if (auk!=null)
+        {
+        		Aksporuka por=new Aksporuka();
+        		por.setAksaukcija(auk);
+        		por.setTekstp(text);
+        		por.setProdavacp(true);
+        		Date d=new Date();
+            	SimpleDateFormat ft = new SimpleDateFormat ("yyyy.MM.dd HH:mm:ss");
+            	String vreme=ft.format(d);
+            	por.setDatump(vreme);
+            	List<Aksporuka> list= auk.getAksporukas();
+            	list.add(por);
+            	auk.setAksporukas(list);
+            	em.merge(por);
+            	em.merge(auk);
+            	return por;
+    	}
+    	return null;
+    }
+    
+    public Aksporuka novaPorukaK(int aukcijaId, String text){
+    	Aksaukcija auk=em.find(Aksaukcija.class, aukcijaId);
+        if (auk!=null)
+        {
+        		Aksporuka por=new Aksporuka();
+        		por.setAksaukcija(auk);
+        		por.setTekstp(text);
+        		por.setProdavacp(false);
+        		Date d=new Date();
+            	SimpleDateFormat ft = new SimpleDateFormat ("yyyy.MM.dd HH:mm:ss");
+            	String vreme=ft.format(d);
+            	por.setDatump(vreme);
+            	List<Aksporuka> list= auk.getAksporukas();
+            	list.add(por);
+            	auk.setAksporukas(list);
+            	em.merge(por);
+            	em.merge(auk);
+            	return por;
+    	}
+    	return null;
+    }
+    
     
     public List<Aksaukcija> aukcijeNazivSve(String naziv){
     	TypedQuery<Aksaukcija> query = em.createQuery
@@ -287,8 +363,131 @@ public class AksMain implements AksMainRemote, AksMainLocal {
         return list;
     }
    
-
-
+    public List<Aksaukcija> aukcijeReportP(String vlasnik){
+    	TypedQuery<Aksaukcija> query = em.createQuery
+    									("SELECT auk FROM Aksaukcija auk WHERE (auk.akskorisnik1.username LIKE :vlasnik AND auk.vreme<:vreme) ORDER BY auk.vreme",
+                Aksaukcija.class);
+    	query.setParameter("vlasnik", "%"+vlasnik+"%");
+    	Date d=new Date();
+    	d.setTime(d.getTime());
+    	SimpleDateFormat ft = new SimpleDateFormat ("yyyy.MM.dd HH:mm:ss");
+    	String vreme=ft.format(d);
+    	query.setParameter("vreme", vreme);
+        List<Aksaukcija> list = query.getResultList();
+        for (Aksaukcija aksaukcija : list) {
+			if (!aksaukcija.getUspesna()){
+				if (aksaukcija.getAksponudas().size()>0){
+					aksaukcija.setUspesna(true);
+					Aksponuda pon= aksaukcija.getAksponudas().get(aksaukcija.getAksponudas().size()-1);
+					aksaukcija.setAkskorisnik2(pon.getAkskorisnik());
+					em.merge(aksaukcija);
+				}
+			}
+		}
+        return list;
+    }
+    
+    public List<Aksaukcija> aukcijeListP(String vlasnik){
+    	TypedQuery<Aksaukcija> query = em.createQuery
+    									("SELECT auk FROM Aksaukcija auk WHERE (auk.akskorisnik1.username LIKE :vlasnik AND auk.vreme<:vreme) ORDER BY auk.vreme",
+                Aksaukcija.class);
+    	query.setParameter("vlasnik", "%"+vlasnik+"%");
+    	Date d=new Date();
+    	d.setTime(d.getTime());
+    	SimpleDateFormat ft = new SimpleDateFormat ("yyyy.MM.dd HH:mm:ss");
+    	String vreme=ft.format(d);
+    	query.setParameter("vreme", vreme);
+        List<Aksaukcija> list = query.getResultList();
+        List<Aksaukcija> list2 = new LinkedList<Aksaukcija>();
+        for (Aksaukcija aksaukcija : list) {
+			if (!aksaukcija.getUspesna()){
+				if (aksaukcija.getAksponudas().size()>0){
+					aksaukcija.setUspesna(true);
+					Aksponuda pon= aksaukcija.getAksponudas().get(aksaukcija.getAksponudas().size()-1);
+					aksaukcija.setAkskorisnik2(pon.getAkskorisnik());
+					em.merge(aksaukcija);
+				}
+			}
+			if (aksaukcija.getUspesna()){
+				list2.add(aksaukcija);
+			}
+		}
+        return list;
+    }
+    
+    public List<Aksaukcija> aukcijeReportK(String vlasnik){
+    	TypedQuery<Aksponuda> query = em.createQuery
+    									("SELECT pon FROM Aksponuda pon WHERE (pon.akskorisnik.username LIKE :vlasnik AND auk.vreme<:vreme) ORDER BY auk.vreme",
+                Aksponuda.class);
+    	query.setParameter("vlasnik", "%"+vlasnik+"%");
+    	Date d=new Date();
+    	d.setTime(d.getTime());
+    	SimpleDateFormat ft = new SimpleDateFormat ("yyyy.MM.dd HH:mm:ss");
+    	String vreme=ft.format(d);
+    	query.setParameter("vreme", vreme);
+        List<Aksponuda> list = query.getResultList();
+        List<Aksaukcija> list2 = new LinkedList<Aksaukcija>();
+        
+        for (Aksponuda aksponuda : list) {
+        	Aksaukcija aksaukcija=aksponuda.getAksaukcija();
+			if (!aksaukcija.getUspesna()){
+				if (aksaukcija.getAksponudas().size()>0){
+					aksaukcija.setUspesna(true);
+					Aksponuda pon= aksaukcija.getAksponudas().get(aksaukcija.getAksponudas().size()-1);
+					aksaukcija.setAkskorisnik2(pon.getAkskorisnik());
+					em.merge(aksaukcija);
+				}
+			}
+			if (!list2.contains(aksaukcija)){
+					list2.add(aksaukcija);
+			}
+		}
+        return list2;
+    }
+    public List<Aksaukcija> aukcijeListK(String vlasnik){
+    	TypedQuery<Aksponuda> query = em.createQuery
+    									("SELECT pon FROM Aksponuda pon WHERE (pon.akskorisnik.username LIKE :vlasnik AND auk.vreme<:vreme) ORDER BY auk.vreme",
+                Aksponuda.class);
+    	query.setParameter("vlasnik", "%"+vlasnik+"%");
+    	Date d=new Date();
+    	d.setTime(d.getTime());
+    	SimpleDateFormat ft = new SimpleDateFormat ("yyyy.MM.dd HH:mm:ss");
+    	String vreme=ft.format(d);
+    	query.setParameter("vreme", vreme);
+        List<Aksponuda> list = query.getResultList();
+        List<Aksaukcija> list2 = new LinkedList<Aksaukcija>();
+        
+        for (Aksponuda aksponuda : list) {
+        	Aksaukcija aksaukcija=aksponuda.getAksaukcija();
+			if (!aksaukcija.getUspesna()){
+				if (aksaukcija.getAksponudas().size()>0){
+					aksaukcija.setUspesna(true);
+					Aksponuda pon= aksaukcija.getAksponudas().get(aksaukcija.getAksponudas().size()-1);
+					aksaukcija.setAkskorisnik2(pon.getAkskorisnik());
+					em.merge(aksaukcija);
+				}
+			}
+			if (!list2.contains(aksaukcija)){
+				if (aksaukcija.getAkskorisnik2().getUsername().equals(vlasnik)){
+					list2.add(aksaukcija);
+				}	
+			}
+		}
+        return list2;
+    }
+    
+    public List<Aksporuka> porukaList(int aukcijaId){
+    	List<Aksporuka>list;
+    	Aksaukcija auk=em.find(Aksaukcija.class, aukcijaId);
+        if (auk!=null)
+        {
+        		list=auk.getAksporukas();
+    	}
+        else{
+        	list=new LinkedList<Aksporuka>();
+        }
+    	return list;
+    }
 
 
 }

@@ -10,7 +10,7 @@ import javax.persistence.*;
  */
 @Entity
 @NamedQuery(name="Aksponuda.findAll", query="SELECT a FROM Aksponuda a")
-public class Aksponuda implements Serializable {
+public class Aksponuda implements Serializable, Comparable<Aksponuda>{
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -64,5 +64,16 @@ public class Aksponuda implements Serializable {
 	public void setAkskorisnik(Akskorisnik akskorisnik) {
 		this.akskorisnik = akskorisnik;
 	}
-
+	
+	@Override
+	public int compareTo(Aksponuda o) {
+		if (this.getPonudaId()<o.getPonudaId()){
+			return -1;
+		}else if (this.getPonudaId()==o.getPonudaId()){
+			return 0;
+		}else{
+			return 1;
+		}
+		
+	}
 }

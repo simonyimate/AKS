@@ -55,7 +55,7 @@ public class MainServlet extends HttpServlet {
 			 try{
 				 InitialContext ic = new InitialContext();
 				 cartBean = (AksMainLocal)
-						 ic.lookup("java:global/ASKEAR/AKSEJB/AksMain!bean.AksMainLocal");
+						 ic.lookup("java:global/AKSEAR2/AKSEJB/AksMain!bean.AksMainLocal");
 				 //
 				 request.getSession().setAttribute(CART_SESSION_KEY, cartBean);
 				 

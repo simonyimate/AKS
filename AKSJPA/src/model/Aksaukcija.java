@@ -11,7 +11,7 @@ import java.util.List;
  */
 @Entity
 @NamedQuery(name="Aksaukcija.findAll", query="SELECT a FROM Aksaukcija a")
-public class Aksaukcija implements Serializable {
+public class Aksaukcija implements Serializable, Comparable<Aksaukcija>{
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -178,6 +178,18 @@ public class Aksaukcija implements Serializable {
 		aksporuka.setAksaukcija(null);
 
 		return aksporuka;
+	}
+
+	@Override
+	public int compareTo(Aksaukcija o) {
+		if (this.getAukcijaId()<o.getAukcijaId()){
+			return -1;
+		}else if (this.getAukcijaId()==o.getAukcijaId()){
+			return 0;
+		}else{
+			return 1;
+		}
+		
 	}
 
 }
