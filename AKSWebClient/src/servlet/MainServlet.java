@@ -226,6 +226,59 @@ public class MainServlet extends HttpServlet {
 					}
 				 RequestDispatcher rd =  getServletContext().getRequestDispatcher("/unosAukcije.jsp");
 				 rd.forward(request, response); 
+			 }else if(type.equals("porukaKupac")){
+				 String naziv=request.getParameter("naziv");
+				 String opis=request.getParameter("opis");
+				 String stanje=request.getParameter("stanje");
+				 String pCena=request.getParameter("pocetnaCena");
+				 float pocetnaCena=Float.parseFloat(pCena);
+				 String pathSlika=request.getParameter("slika");
+					Akspredmet predmet= cartBean.novPredmet(naziv, opis, stanje, pocetnaCena, pathSlika);
+					String danS=request.getParameter("dan");
+					String satS=request.getParameter("sat");
+					int dan=Integer.parseInt(danS);
+					int sat=Integer.parseInt(satS);
+					Aksaukcija aukc=cartBean.novaAukcija(result, predmet, dan, sat);
+					if(aukc==null){
+						request.setAttribute("kreiranje", "Aukcija nije uspesno unesena");
+					}else{
+						request.setAttribute("kreiranje", "Aukcija je uspesno uneta");
+					}
+				 RequestDispatcher rd =  getServletContext().getRequestDispatcher("/unosAukcije.jsp");
+				 rd.forward(request, response); 
+			 }else if(type.equals("porukaProdavac")){
+				 String naziv=request.getParameter("naziv");
+				 String opis=request.getParameter("opis");
+				 String stanje=request.getParameter("stanje");
+				 String pCena=request.getParameter("pocetnaCena");
+				
+				 RequestDispatcher rd =  getServletContext().getRequestDispatcher("/unosAukcije.jsp");
+				 rd.forward(request, response); 
+			 }
+			 else if(type.equals("pogledajPorukuKupac")){
+				 String naziv=request.getParameter("naziv");
+				 String opis=request.getParameter("opis");
+				 String stanje=request.getParameter("stanje");
+				 String pCena=request.getParameter("pocetnaCena");
+				
+				 RequestDispatcher rd =  getServletContext().getRequestDispatcher("/unosAukcije.jsp");
+				 rd.forward(request, response); 
+			 }else if(type.equals("pogledajPorukuprodavac")){
+				 String naziv=request.getParameter("naziv");
+				 String opis=request.getParameter("opis");
+				 String stanje=request.getParameter("stanje");
+				 String pCena=request.getParameter("pocetnaCena");
+				
+				 RequestDispatcher rd =  getServletContext().getRequestDispatcher("/unosAukcije.jsp");
+				 rd.forward(request, response); 
+			 }else if(type.equals("ishodLicitacije")){
+				 String naziv=request.getParameter("naziv");
+				 String opis=request.getParameter("opis");
+				 String stanje=request.getParameter("stanje");
+				 String pCena=request.getParameter("pocetnaCena");
+				
+				 RequestDispatcher rd =  getServletContext().getRequestDispatcher("/unosAukcije.jsp");
+				 rd.forward(request, response); 
 			 }
 	}
 
