@@ -11,13 +11,13 @@
 <form action="/AKSWebClient/MainServlet" method="get">
 	<input type="hidden" name="type" value="pogledajPorukuProdavac">
 	Izaberite aukciju za koju zelite da pogledate poruke:
-	<c:if test="${!empty aukcijeGdeLicitiram}"> 
+	<c:if test="${!empty aukcijeUspesneKupac}"> 
 		<select name="auk">
 		<c:forEach var="ak" items="${aukcijeGdeLicitiram}">
-			<option value="${ak.akspredmet.id}">${ak.akspredmet.naziv}</option>
+			<option value="${ak.akspredmet.predmetId}">${ak.akspredmet.naziv}</option>
 		</c:forEach>
 		</select>
-	</c:if>
+	
 	<input type="submit" value="Prikazi poruke">
 	<c:if test="${!empty poruke}">
 	Poruke:  
@@ -33,6 +33,7 @@
   			</c:forEach>
   		</table>
   		</c:if>
+  	</c:if>
 </form>
   		<form action="/AKSWebClient/logovaniUser.jsp" method="get">
 		<input type="submit" value="NAZAD"> 

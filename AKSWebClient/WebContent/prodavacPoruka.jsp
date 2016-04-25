@@ -10,18 +10,19 @@
 <body>
 	<form action="/AKSWebClient/MainServlet" method="get">
 	Izaberite aukcije za koju zelite da posaljete poruku prodavcu:
-	<c:if test="${!empty aukcijeGdeLicitiram}">
+	<c:if test="${!empty aukcijeUspesneKupac}">
 	<select name="auk">
 		<c:forEach var="ak" items="${aukcijeGdeLicitiram}">
-			<option value="${ak.akspredmet.id}">${ak.akspredmet.naziv}</option>
+			<option value="${ak.akspredmet.predmetId}">${ak.akspredmet.naziv}</option>
 		</c:forEach>
 		</select>
-	</c:if>
+	
 	<hr>
 		<input type="hidden" name="type" value="porukaProdavac">
 		Tekst poruke<input type="text" name="text">
 		<%=request.getAttribute("lic")%>
 	<input type="submit" value="Posalji"> 
+	</c:if>
 </form>
 	
 <form action="/AKSWebClient/logovaniUser.jsp" method="get">

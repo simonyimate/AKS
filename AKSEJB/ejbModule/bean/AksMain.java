@@ -3,6 +3,8 @@ package bean;
 import java.io.File;
 import java.io.FileInputStream;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -365,7 +367,10 @@ public class AksMain implements AksMainRemote, AksMainLocal {
     }
    
     public List<Aksaukcija> aukcijeReportP(String vlasnik){
-    	vlasnik=user.getIme();
+    	//return null;
+    	
+    	vlasnik=user.getUsername();
+    	
     	TypedQuery<Aksaukcija> query = em.createQuery
     									("SELECT auk FROM Aksaukcija auk WHERE (auk.akskorisnik1.username LIKE :vlasnik AND auk.vreme<:vreme) ORDER BY auk.vreme",
                 Aksaukcija.class);
@@ -386,11 +391,19 @@ public class AksMain implements AksMainRemote, AksMainLocal {
 				}
 			}
 		}
+        System.out.println("aukcijeReportP");
+        System.out.println(vlasnik);
+        for (Aksaukcija aksaukcija : list) {
+			System.out.println(aksaukcija.getAkskorisnik1()+" "+aksaukcija.getAkspredmet().getNaziv());
+		}
+        System.out.println("aukcijeReportP");
         return list;
     }
     
     public List<Aksaukcija> aukcijeListP(String vlasnik){
-    	vlasnik=user.getIme();
+    	//return null;
+    	
+    	vlasnik=user.getUsername();
     	TypedQuery<Aksaukcija> query = em.createQuery
     									("SELECT auk FROM Aksaukcija auk WHERE (auk.akskorisnik1.username LIKE :vlasnik AND auk.vreme<:vreme) ORDER BY auk.vreme",
                 Aksaukcija.class);
@@ -418,10 +431,20 @@ public class AksMain implements AksMainRemote, AksMainLocal {
         return list;
     }
     
+    static class AukComparatorVreme implements Comparator<Aksaukcija>
+    {
+        public int compare(Aksaukcija a1, Aksaukcija a2)
+        {
+            return a1.getVreme().compareTo(a2.getVreme());
+        }
+     }
+    
     public List<Aksaukcija> aukcijeReportK(String vlasnik){
-    	vlasnik=user.getIme();
+    	//return null;
+    	
+    	vlasnik=user.getUsername();
     	TypedQuery<Aksponuda> query = em.createQuery
-    									("SELECT pon FROM Aksponuda pon WHERE (pon.akskorisnik.username LIKE :vlasnik AND auk.vreme<:vreme) ORDER BY auk.vreme",
+    									("SELECT pon FROM Aksponuda pon WHERE (pon.akskorisnik.username LIKE :vlasnik AND pon.aksaukcija.vreme<:vreme)", //ORDER BY pon.aksaukcija.vreme",
                 Aksponuda.class);
     	query.setParameter("vlasnik", "%"+vlasnik+"%");
     	Date d=new Date();
@@ -446,12 +469,16 @@ public class AksMain implements AksMainRemote, AksMainLocal {
 					list2.add(aksaukcija);
 			}
 		}
+        Collections.sort(list2, new AukComparatorVreme());
         return list2;
+        
     }
     public List<Aksaukcija> aukcijeListK(String vlasnik){
-    	vlasnik=user.getIme();
+    	//return null;
+    	
+    	vlasnik=user.getUsername();
     	TypedQuery<Aksponuda> query = em.createQuery
-    									("SELECT pon FROM Aksponuda pon WHERE (pon.akskorisnik.username LIKE :vlasnik AND auk.vreme<:vreme) ORDER BY auk.vreme",
+    									("SELECT pon FROM Aksponuda pon WHERE (pon.akskorisnik.username LIKE :vlasnik AND pon.aksaukcija.vreme<:vreme)", //ORDER BY pon.aksaukcija.vreme",
                 Aksponuda.class);
     	query.setParameter("vlasnik", "%"+vlasnik+"%");
     	Date d=new Date();
@@ -478,6 +505,7 @@ public class AksMain implements AksMainRemote, AksMainLocal {
 				}	
 			}
 		}
+        Collections.sort(list2, new AukComparatorVreme());
         return list2;
     }
      
