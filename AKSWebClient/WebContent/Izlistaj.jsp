@@ -58,6 +58,25 @@
   		</table>
   		</c:if>
 </form>
+<form action="/AKSWebClient/MainServlet" method="get">
+	<c:if test="${!empty aukcije}"> 
+	<input type="hidden" name="type" value="licitiraj">
+	Izaberite aukciju za koju zelite da date ponudu:
+		
+		<select name="auk">
+		<c:forEach var="ak" items="${aukcije}">
+		
+			<option value="${ak.akspredmet.id}">${ak.akspredmet.naziv}</option>
+		
+		</c:forEach>
+		</select>
+		Unesite iznos licitacije:
+		
+		<input type="number" name="iznos">
+		<input type="submit" value="LICITIRAJ">
+		  <%=request.getAttribute("lic")%>
+	</c:if>
+</form>
 	<form action="/AKSWebClient/index.jsp" method="get">
 		<input type="submit" value="NAZAD"> 
 	</form>

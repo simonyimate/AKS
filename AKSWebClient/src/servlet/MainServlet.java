@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import bean.AksMainLocal;
 import model.Akskorisnik;
+import model.Aksponuda;
 import model.Akspredmet;
 import model.Aksaukcija;
 
@@ -278,6 +279,20 @@ public class MainServlet extends HttpServlet {
 				 String pCena=request.getParameter("pocetnaCena");
 				
 				 RequestDispatcher rd =  getServletContext().getRequestDispatcher("/unosAukcije.jsp");
+				 rd.forward(request, response); 
+			 }else if(type.equals("licitiraj")){
+				 String auk= request.getParameter("auk");
+				 String iznos= request.getParameter("iznos");
+				 int aukcijaId=Integer.parseInt(auk);
+				 float vrednost=Float.parseFloat(iznos);
+				 Aksponuda pon=cartBean.novaPonuda(null, aukcijaId,vrednost);
+				 if(pon!=null){
+					 request.setAttribute("lic", "licitacija je neuspesna");
+				 }else{
+					 request.setAttribute("lic", "licitacija je uspesna");
+				 }
+				
+				 RequestDispatcher rd =  getServletContext().getRequestDispatcher("/Izlistaj.jsp");
 				 rd.forward(request, response); 
 			 }
 	}
