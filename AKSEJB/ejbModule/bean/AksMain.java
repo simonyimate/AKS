@@ -122,6 +122,7 @@ public class AksMain implements AksMainRemote, AksMainLocal {
     }
     
     public Aksponuda novaPonuda(String username, int aukcijaId, float vrednost){
+    	username=user.getIme();
     	Akskorisnik kor=em.find(Akskorisnik.class, username);
     	if (kor!=null)
     	{
