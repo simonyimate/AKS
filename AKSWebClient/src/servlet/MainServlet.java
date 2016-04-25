@@ -272,14 +272,27 @@ public class MainServlet extends HttpServlet {
 				
 				 RequestDispatcher rd =  getServletContext().getRequestDispatcher("/unosAukcije.jsp");
 				 rd.forward(request, response); 
+				 
+				 
+				 //!!!!!!!!!!!!!
+				 //ISHOD LICITACIJE!!!
 			 }else if(type.equals("ishodLicitacije")){
-				 String naziv=request.getParameter("naziv");
-				 String opis=request.getParameter("opis");
-				 String stanje=request.getParameter("stanje");
-				 String pCena=request.getParameter("pocetnaCena");
+				 List<Aksaukcija> aukcijeSveVlasnik=cartBean.aukcijeReportP(result.getIme());
+				 List<Aksaukcija> aukcijeSveLicit=cartBean.aukcijeReportK(result.getIme());
+				 List<Aksaukcija> aukcijeUspesneVlasnik=cartBean.aukcijeListP(result.getIme());
+				 List<Aksaukcija> aukcijeUspesneKupac=cartBean.aukcijeListK(result.getIme());
+				 
+				 request.setAttribute("aukcijeSveVlasnik",aukcijeSveVlasnik);
+				 request.setAttribute("aukcijeSveLicit",aukcijeSveLicit);
+				 request.setAttribute("aukcijeUspesneVlasnik",aukcijeUspesneVlasnik);
+				 request.setAttribute("aukcijeUspesneKupac",aukcijeUspesneKupac);
 				
-				 RequestDispatcher rd =  getServletContext().getRequestDispatcher("/unosAukcije.jsp");
-				 rd.forward(request, response); 
+				 RequestDispatcher rd =  getServletContext().getRequestDispatcher("/rezultatiLicitacija.jsp");
+				 rd.forward(request, response);
+				 
+				 
+				 //!!!!!!!!!
+				 //SAMA LICITACIJA!!!
 			 }else if(type.equals("licitiraj")){
 				 String auk= request.getParameter("auk");
 				 String iznos= request.getParameter("iznos");

@@ -365,6 +365,7 @@ public class AksMain implements AksMainRemote, AksMainLocal {
     }
    
     public List<Aksaukcija> aukcijeReportP(String vlasnik){
+    	vlasnik=user.getIme();
     	TypedQuery<Aksaukcija> query = em.createQuery
     									("SELECT auk FROM Aksaukcija auk WHERE (auk.akskorisnik1.username LIKE :vlasnik AND auk.vreme<:vreme) ORDER BY auk.vreme",
                 Aksaukcija.class);
@@ -389,6 +390,7 @@ public class AksMain implements AksMainRemote, AksMainLocal {
     }
     
     public List<Aksaukcija> aukcijeListP(String vlasnik){
+    	vlasnik=user.getIme();
     	TypedQuery<Aksaukcija> query = em.createQuery
     									("SELECT auk FROM Aksaukcija auk WHERE (auk.akskorisnik1.username LIKE :vlasnik AND auk.vreme<:vreme) ORDER BY auk.vreme",
                 Aksaukcija.class);
@@ -417,6 +419,7 @@ public class AksMain implements AksMainRemote, AksMainLocal {
     }
     
     public List<Aksaukcija> aukcijeReportK(String vlasnik){
+    	vlasnik=user.getIme();
     	TypedQuery<Aksponuda> query = em.createQuery
     									("SELECT pon FROM Aksponuda pon WHERE (pon.akskorisnik.username LIKE :vlasnik AND auk.vreme<:vreme) ORDER BY auk.vreme",
                 Aksponuda.class);
@@ -446,6 +449,7 @@ public class AksMain implements AksMainRemote, AksMainLocal {
         return list2;
     }
     public List<Aksaukcija> aukcijeListK(String vlasnik){
+    	vlasnik=user.getIme();
     	TypedQuery<Aksponuda> query = em.createQuery
     									("SELECT pon FROM Aksponuda pon WHERE (pon.akskorisnik.username LIKE :vlasnik AND auk.vreme<:vreme) ORDER BY auk.vreme",
                 Aksponuda.class);
