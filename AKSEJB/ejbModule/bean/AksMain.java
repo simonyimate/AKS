@@ -480,7 +480,7 @@ public class AksMain implements AksMainRemote, AksMainLocal {
 		}
         return list2;
     }
-    
+     
     public List<Aksporuka> porukaList(int aukcijaId){
     	List<Aksporuka>list;
     	Aksaukcija auk=em.find(Aksaukcija.class, aukcijaId);

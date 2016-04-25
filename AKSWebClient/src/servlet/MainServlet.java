@@ -292,7 +292,7 @@ public class MainServlet extends HttpServlet {
 				 
 				 
 				 //!!!!!!!!!
-				 //SAMA LICITACIJA!!!
+				 //SAMA LICITACIJA!!! 
 			 }else if(type.equals("licitiraj")){
 				 String auk= request.getParameter("auk");
 				 String iznos= request.getParameter("iznos");
