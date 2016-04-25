@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import bean.AksMainLocal;
 import model.Akskorisnik;
 import model.Aksponuda;
+import model.Aksporuka;
 import model.Akspredmet;
 import model.Aksaukcija;
 
@@ -28,6 +29,8 @@ public class MainServlet extends HttpServlet {
 	private static final String CART_SESSION_KEY = "shoppingCart";
 	Akskorisnik result=null;
 	List<Aksaukcija> aukcije=new ArrayList<Aksaukcija>();
+	List<Aksaukcija> aukcijeMoje=new ArrayList<Aksaukcija>();
+	List<Aksaukcija> aukcijeGdeLicitiram=new ArrayList<Aksaukcija>();
        
     /**
      * @see HttpServlet#HttpServlet() 
@@ -73,6 +76,10 @@ public class MainServlet extends HttpServlet {
 				boolean rezultat=false;
 			if (!username.equals("") &&username !=null && password!=null && !password.equals("")) {
 					result = cartBean.login(username, password);
+					aukcijeMoje=cartBean.aukcijeReportP(result.getIme());
+					aukcijeGdeLicitiram=cartBean.aukcijeReportK(result.getIme());
+					request.getSession().setAttribute("aukcijeMoje", aukcijeMoje);
+					request.getSession().setAttribute("aukcijeGdeLicitiram", aukcijeGdeLicitiram);
 					if(result!=null){
 						rezultat=true;
 					}
@@ -226,51 +233,51 @@ public class MainServlet extends HttpServlet {
 						request.setAttribute("kreiranje", "Aukcija je uspesno uneta");
 					}
 				 RequestDispatcher rd =  getServletContext().getRequestDispatcher("/unosAukcije.jsp");
-				 rd.forward(request, response); 
+				 rd.forward(request, response);
+				 //!!!!!!!!
+				 //Poruku saljemo kupcu!
 			 }else if(type.equals("porukaKupac")){
-				 String naziv=request.getParameter("naziv");
-				 String opis=request.getParameter("opis");
-				 String stanje=request.getParameter("stanje");
-				 String pCena=request.getParameter("pocetnaCena");
-				 float pocetnaCena=Float.parseFloat(pCena);
-				 String pathSlika=request.getParameter("slika");
-					Akspredmet predmet= cartBean.novPredmet(naziv, opis, stanje, pocetnaCena, pathSlika);
-					String danS=request.getParameter("dan");
-					String satS=request.getParameter("sat");
-					int dan=Integer.parseInt(danS);
-					int sat=Integer.parseInt(satS);
-					Aksaukcija aukc=cartBean.novaAukcija(result, predmet, dan, sat);
-					if(aukc==null){
-						request.setAttribute("kreiranje", "Aukcija nije uspesno unesena");
-					}else{
-						request.setAttribute("kreiranje", "Aukcija je uspesno uneta");
-					}
-				 RequestDispatcher rd =  getServletContext().getRequestDispatcher("/unosAukcije.jsp");
+				 String auk= request.getParameter("auk");
+				 String text=request.getParameter("text");
+				 int aukcijaId=Integer.parseInt(auk);
+				 Aksporuka por=cartBean.novaPorukaP(aukcijaId, text);
+				 if(por==null){
+					 request.setAttribute("por", "Poruka nije poslata");
+				 }else{
+					 request.setAttribute("por", "Poruka je poslata");
+				 }
+				 RequestDispatcher rd =  getServletContext().getRequestDispatcher("/poruka.jsp");
 				 rd.forward(request, response); 
+				 //!!!!!!!!!!!
+				 //Poruku saljemo prodavcu
 			 }else if(type.equals("porukaProdavac")){
-				 String naziv=request.getParameter("naziv");
-				 String opis=request.getParameter("opis");
-				 String stanje=request.getParameter("stanje");
-				 String pCena=request.getParameter("pocetnaCena");
-				
-				 RequestDispatcher rd =  getServletContext().getRequestDispatcher("/unosAukcije.jsp");
+				 String auk= request.getParameter("auk");
+				 String text=request.getParameter("text");
+				 int aukcijaId=Integer.parseInt(auk);
+				 Aksporuka por=cartBean.novaPorukaK(aukcijaId, text);
+				 if(por==null){
+					 request.setAttribute("por", "Poruka nije poslata");
+				 }else{
+					 request.setAttribute("por", "Poruka je poslata");
+				 }
+				 RequestDispatcher rd =  getServletContext().getRequestDispatcher("/prodavacPoruka.jsp");
 				 rd.forward(request, response); 
 			 }
+		 	
 			 else if(type.equals("pogledajPorukuKupac")){
-				 String naziv=request.getParameter("naziv");
-				 String opis=request.getParameter("opis");
-				 String stanje=request.getParameter("stanje");
-				 String pCena=request.getParameter("pocetnaCena");
-				
-				 RequestDispatcher rd =  getServletContext().getRequestDispatcher("/unosAukcije.jsp");
+				 String auk= request.getParameter("auk");
+				 int aukcijaId=Integer.parseInt(auk);
+				 List<Aksporuka> poruke=cartBean.porukaList(aukcijaId);
+				 request.setAttribute("poruke", poruke);
+				 RequestDispatcher rd =  getServletContext().getRequestDispatcher("/pogledajPorukuKupac.jsp");
 				 rd.forward(request, response); 
-			 }else if(type.equals("pogledajPorukuprodavac")){
-				 String naziv=request.getParameter("naziv");
-				 String opis=request.getParameter("opis");
-				 String stanje=request.getParameter("stanje");
-				 String pCena=request.getParameter("pocetnaCena");
+			 }else if(type.equals("pogledajPorukuProdavac")){
+				 String auk= request.getParameter("auk");
+				 int aukcijaId=Integer.parseInt(auk);
+				 List<Aksporuka> poruke=cartBean.porukaList(aukcijaId);
+				 request.setAttribute("poruke", poruke);
 				
-				 RequestDispatcher rd =  getServletContext().getRequestDispatcher("/unosAukcije.jsp");
+				 RequestDispatcher rd =  getServletContext().getRequestDispatcher("/pogledajPorukuProdavac.jsp");
 				 rd.forward(request, response); 
 				 
 				 
