@@ -286,7 +286,7 @@ public class MainServlet extends HttpServlet {
 				 int aukcijaId=Integer.parseInt(auk);
 				 float vrednost=Float.parseFloat(iznos);
 				 Aksponuda pon=cartBean.novaPonuda(null, aukcijaId,vrednost);
-				 if(pon==null){
+				 if(pon==null){ 
 					 request.setAttribute("lic", "licitacija je neuspesna");
 				 }else{
 					 request.setAttribute("lic", "licitacija je uspesna");
