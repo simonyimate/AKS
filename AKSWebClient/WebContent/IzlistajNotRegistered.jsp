@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -57,28 +56,6 @@
   			</c:forEach>
   		</table>
   		</c:if>
-</form>
-<form action="/AKSWebClient/MainServlet" method="get">
-	<c:if test="${!empty aukcije}"> 
-		<%-- <c:if test="${tip1 != zvr}"> --%> 
-		<input type="hidden" name="type" value="licitiraj">
-		Izaberite aukciju za koju zelite da date ponudu:
-			
-			<select name="auk">
-			<c:forEach var="ak" items="${aukcije}">
-			
-				<option value="${ak.aukcijaId}">${ak.akspredmet.naziv}</option>
-			
-			</c:forEach>
-			</select>
-			Unesite iznos licitacije:
-			
-			<input type="number" name="iznos">
-			<input type="submit" value="LICITIRAJ">
-			 
-		<%--</c:if>--%>
-	</c:if>
-	 <%=request.getAttribute("lic")%>
 </form>
 	<form action="/AKSWebClient/index.jsp" method="get">
 		<input type="submit" value="NAZAD"> 

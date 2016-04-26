@@ -12,10 +12,10 @@
 <form action="/AKSWebClient/MainServlet" method="get">
 	<input type="hidden" name="type" value="pogledajPorukuKupac">
 	Izaberite aukciju za koju zelite da pogledate poruke:
-	<c:if test="${!empty aukcijeMoje}"> 
+	<c:if test="${!empty aukcijeUspesneVlasnik}"> 
 		<select name="auk">
 		<c:forEach var="ak" items="${aukcijeUspesneVlasnik}">
-			<option value="${ak.akspredmet.predmetId}">${ak.akspredmet.naziv}</option>
+			<option value="${ak.aukcijaId}">${ak.akspredmet.naziv}</option>
 		</c:forEach>
 		</select>
 	
@@ -29,7 +29,12 @@
   				<td>${p.datump}</td>
   				<td>${p.tekstp}</td>
   				<td>${p.aksaukcija.akspredmet.naziv}</td>
-  				<td>${p.aksaukcija.akskorisnik1.username}</td>
+  				<c:if test="${p.prodavacp == true}"> 
+  					<td><font color="red">${p.aksaukcija.akskorisnik1.username}</font></td>
+  				</c:if>
+  				<c:if test="${p.prodavacp == false}"> 
+  					<td><font color="green">${p.aksaukcija.akskorisnik2.username}</font></td>
+  				</c:if>
   			</tr>
   			</c:forEach>
   		</table>

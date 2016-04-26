@@ -124,35 +124,59 @@ public class AksMain implements AksMainRemote, AksMainLocal {
     }
     
     public Aksponuda novaPonuda(String username, int aukcijaId, float vrednost){
-    	username=user.getIme();
+    	System.out.println("AID "+aukcijaId+" vrednost "+vrednost);
+    	if(user==null){
+    		return null;
+    	}
+    	username=user.getUsername();
     	Akskorisnik kor=em.find(Akskorisnik.class, username);
+    	System.out.println("USER OK "+user.getUsername());
     	if (kor!=null)
     	{
+    		System.out.println("Korisnik FOUND");
     		Aksaukcija auk=em.find(Aksaukcija.class, aukcijaId);
         	if (auk!=null)
         	{
-        		if(auk.getNajvecaponuda()<vrednost)
-        		{
+        		System.out.println("Aukcija FOUND");
+        		Date d=new Date();
+            	d.setTime(d.getTime());
+            	SimpleDateFormat ft = new SimpleDateFormat ("yyyy.MM.dd HH:mm:ss");
+            	String vreme=ft.format(d);
+        		if (auk.getVreme().compareTo(vreme)>0)
+            	{
+        			System.out.println("Nezavrsena FOUND");
+        			if(auk.getNajvecaponuda()<vrednost)
+	        		{
+        				System.out.println("Dobar vrednost FOUND");
+        				Aksponuda pon=new Aksponuda();
+	        			pon.setAksaukcija(auk);
+	        			pon.setAkskorisnik(kor);
+	        			pon.setVrednost(vrednost);
+	        			List<Aksponuda> list=auk.getAksponudas();
+	        			list.add(pon);
+	        			auk.setAksponudas(list);
+	        			auk.setNajvecaponuda(vrednost);
+	        			em.merge(pon);
+	        			em.merge(auk);
+	        			return pon;
+	        		}
+	        		else
+	        		{
+	        			System.out.println("Los vrednost FOUND");
+	        			Aksponuda pon=new Aksponuda();
+	        			pon.setVrednost(-1.0f);
+	        			return pon;
+	        		}
+            	}
+        		else{
+        			System.out.println("Zavrsena aukcija FOUND");
         			Aksponuda pon=new Aksponuda();
-        			pon.setAksaukcija(auk);
-        			pon.setAkskorisnik(kor);
-        			pon.setVrednost(vrednost);
-        			List<Aksponuda> list=auk.getAksponudas();
-        			list.add(pon);
-        			auk.setAksponudas(list);
-        			auk.setNajvecaponuda(vrednost);
-        			em.merge(pon);
-        			em.merge(auk);
-        			return pon;
-        		}
-        		else
-        		{
-        			Aksponuda pon=new Aksponuda();
-        			pon.setVrednost(-1.0f);
+        			pon.setVrednost(-2.0f);
         			return pon;
         		}
         	}
     	}
+    	
     	return null;
     }
     
@@ -428,7 +452,7 @@ public class AksMain implements AksMainRemote, AksMainLocal {
 				list2.add(aksaukcija);
 			}
 		}
-        return list;
+        return list2;
     }
     
     static class AukComparatorVreme implements Comparator<Aksaukcija>
@@ -511,14 +535,19 @@ public class AksMain implements AksMainRemote, AksMainLocal {
      
     public List<Aksporuka> porukaList(int aukcijaId){
     	List<Aksporuka>list;
-    	Aksaukcija auk=em.find(Aksaukcija.class, aukcijaId);
+    	TypedQuery<Aksporuka> query = em.createQuery
+				("SELECT por FROM Aksporuka por WHERE (por.aksaukcija.aukcijaId = :AID )", Aksporuka.class);
+    	query.setParameter("AID", aukcijaId);
+    	list = query.getResultList();
+    	
+    	/*Aksaukcija auk=em.find(Aksaukcija.class, aukcijaId);
         if (auk!=null)
         {
         		list=auk.getAksporukas();
     	}
         else{
         	list=new LinkedList<Aksporuka>();
-        }
+        }*/
     	return list;
     }
 
