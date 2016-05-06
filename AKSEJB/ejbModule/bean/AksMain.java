@@ -224,6 +224,71 @@ public class AksMain implements AksMainRemote, AksMainLocal {
     	return null;
     }
     
+    public Akskomentar novKommentarP(int aukcijaId, String text, int ocena){
+    	Aksaukcija auk=em.find(Aksaukcija.class, aukcijaId);
+        if (auk!=null)
+        {
+        		if ((ocena<1)||(ocena>5)){
+        			return null;
+        		}
+        		Akskomentar kom=new Akskomentar();
+        		kom.setAksaukcija(auk);
+        		kom.setTekstk(text);        		
+        		kom.setOcena(ocena);
+        		kom.setProdavack(true);
+        		Date d=new Date();
+            	SimpleDateFormat ft = new SimpleDateFormat ("yyyy.MM.dd HH:mm:ss");
+            	String vreme=ft.format(d);
+            	kom.setDatumk(vreme);
+            	List<Akskomentar> list= auk.getAkskomentars();
+            	list.add(kom);
+            	auk.setAkskomentars(list);
+            	em.merge(kom);
+            	em.merge(kom);
+            	return kom;
+    	}
+    	return null;
+    }
+    public Akskomentar novKommentarK(int aukcijaId, String text, int ocena){
+    	Aksaukcija auk=em.find(Aksaukcija.class, aukcijaId);
+        if (auk!=null)
+        {
+        		if ((ocena<1)||(ocena>5)){
+        			return null;
+        		}
+        		Akskomentar kom=new Akskomentar();
+        		kom.setAksaukcija(auk);
+        		kom.setTekstk(text);        		
+        		kom.setOcena(ocena);
+        		kom.setProdavack(false);
+        		Date d=new Date();
+            	SimpleDateFormat ft = new SimpleDateFormat ("yyyy.MM.dd HH:mm:ss");
+            	String vreme=ft.format(d);
+            	kom.setDatumk(vreme);
+            	List<Akskomentar> list= auk.getAkskomentars();
+            	list.add(kom);
+            	auk.setAkskomentars(list);
+            	em.merge(kom);
+            	em.merge(kom);
+            	return kom;
+    	}
+    	return null;
+    }
+    
+    public List<Akskomentar> kommentarP(String username){
+    	TypedQuery<Akskomentar> query = em.createQuery
+    									("SELECT kom FROM Akskomentar kom WHERE kom.aksaukcija.akskorisnik1.username = :username ORDER BY kom.aksaukcija.vreme",
+                Akskomentar.class);
+    	query.setParameter("username", username);
+        return query.getResultList();
+    }
+    public List<Akskomentar> kommentarK(String username){
+    	TypedQuery<Akskomentar> query = em.createQuery
+    									("SELECT kom FROM Akskomentar kom WHERE kom.aksaukcija.akskorisnik2.username = :username ORDER BY kom.aksaukcija.vreme",
+                Akskomentar.class);
+    	query.setParameter("username", username);
+        return query.getResultList();
+    }
     
     public List<Aksaukcija> aukcijeNazivSve(String naziv){
     	TypedQuery<Aksaukcija> query = em.createQuery

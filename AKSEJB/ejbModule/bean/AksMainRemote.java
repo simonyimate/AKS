@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Remote;
 
 import model.Aksaukcija;
+import model.Akskomentar;
 import model.Akskorisnik;
 import model.Aksponuda;
 import model.Aksporuka;
@@ -20,6 +21,10 @@ public interface AksMainRemote {
 	public Aksponuda novaPonuda(String username, int aukcijaId, float vrednost);
 	public Aksporuka novaPorukaP(int aukcijaId, String text);
 	public Aksporuka novaPorukaK(int aukcijaId, String text);
+	public Akskomentar novKommentarP(int aukcijaId, String text, int ocena);
+	public Akskomentar novKommentarK(int aukcijaId, String text, int ocena);
+	 public List<Akskomentar> kommentarP(String username);
+	 public List<Akskomentar> kommentarK(String username);
 	 public List<Aksaukcija> aukcijeNazivSve(String naziv);
 	 public List<Aksaukcija> aukcijeNazivAktivne(String naziv);
 	 public List<Aksaukcija> aukcijeNazivZavrsene(String naziv);
