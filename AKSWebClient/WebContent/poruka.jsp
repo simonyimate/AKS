@@ -12,15 +12,15 @@
 	Izaberite aukcije za koju zelite da posaljete poruku kupcu:
 	<c:if test="${!empty aukcijeUspesneVlasnik}">
 	<select name="auk">
-		<c:forEach var="ak" items="${aukcijeMoje}">
-			<option value="${ak.akspredmet.predmetId}">${ak.akspredmet.naziv}</option>
+		<c:forEach var="ak" items="${aukcijeUspesneVlasnik}">
+			<option value="${ak.aukcijaId}">${ak.akspredmet.naziv}</option>
 		</c:forEach>
 		</select>
 	
 	<hr>
 		<input type="hidden" name="type" value="porukaKupac">
 		Tekst poruke<input type="text" name="text">
-		<%=request.getAttribute("lic")%>
+		<%=request.getAttribute("por")%>
 	<input type="submit" value="Posalji"> 
 	</c:if>
 </form>

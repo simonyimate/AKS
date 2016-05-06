@@ -31,6 +31,8 @@ public class MainServlet extends HttpServlet {
 	List<Aksaukcija> aukcije=new ArrayList<Aksaukcija>();
 	List<Aksaukcija> aukcijeMoje=new ArrayList<Aksaukcija>();
 	List<Aksaukcija> aukcijeGdeLicitiram=new ArrayList<Aksaukcija>();
+	List<Aksaukcija> aukcijeUspesneVlasnik=new ArrayList<Aksaukcija>();
+	List<Aksaukcija> aukcijeUspesneKupac=new ArrayList<Aksaukcija>();
        
     /**
      * @see HttpServlet#HttpServlet() 
@@ -78,8 +80,12 @@ public class MainServlet extends HttpServlet {
 					result = cartBean.login(username, password);
 					aukcijeMoje=cartBean.aukcijeReportP(result.getIme());
 					aukcijeGdeLicitiram=cartBean.aukcijeReportK(result.getIme());
+					aukcijeUspesneVlasnik=cartBean.aukcijeListP(result.getIme());
+					aukcijeUspesneKupac=cartBean.aukcijeListK(result.getIme());
 					request.getSession().setAttribute("aukcijeMoje", aukcijeMoje);
 					request.getSession().setAttribute("aukcijeGdeLicitiram", aukcijeGdeLicitiram);
+					request.getSession().setAttribute("aukcijeUspesneVlasnik", aukcijeUspesneVlasnik);
+					request.getSession().setAttribute("aukcijeUspesneKupac", aukcijeUspesneKupac);
 					if(result!=null){
 						rezultat=true;
 					}
@@ -307,9 +313,13 @@ public class MainServlet extends HttpServlet {
 				 float vrednost=Float.parseFloat(iznos);
 				 Aksponuda pon=cartBean.novaPonuda(null, aukcijaId,vrednost);
 				 if(pon==null){  
-					 request.setAttribute("lic", "licitacija je neuspesna");
+					 request.setAttribute("lic", "licitacija je neuspesna,molimo vas registrujte se na nas sistem");
+				 }else if(pon.getVrednost()<-0.5f && pon.getVrednost()>-1.5f){
+					 request.setAttribute("lic", "Pravise mali iznost ste dali tokom licitacije");
+				 }else if(pon.getVrednost()<-1.5f && pon.getVrednost()>-2.5f){
+					 request.setAttribute("lic", "Aukcija je vec zavrsena");
 				 }else{
-					 request.setAttribute("lic", "licitacija je uspesna");
+					 request.setAttribute("lic", "Licitacija je uspesna");
 				 }
 				
 				 RequestDispatcher rd =  getServletContext().getRequestDispatcher("/Izlistaj.jsp");
