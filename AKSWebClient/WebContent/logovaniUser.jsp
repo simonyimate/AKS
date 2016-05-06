@@ -28,6 +28,9 @@
 <form action="/AKSWebClient/pogledajPorukuProdavac.jsp" method="get">
 	<input type="submit" value="Pogledaj poruke od prodavca"> 
 </form>
+<form action="/AKSWebClient/ocenaAndcomentars.jsp" method="get">
+	<input type="submit" value="Oceni i komentarisi oglase"> 
+</form>
 	Logovanje je : <%=request.getAttribute("result")%>
 <form action="/AKSWebClient/index.jsp" method="get">
 		<input type="submit" value="NAZAD"> 

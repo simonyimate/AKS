@@ -324,7 +324,16 @@ public class MainServlet extends HttpServlet {
 				
 				 RequestDispatcher rd =  getServletContext().getRequestDispatcher("/Izlistaj.jsp");
 				 rd.forward(request, response); 
-			 }
-	}
+				 
+				 
+				 //KOMENTAR I OCENJIVANJE!!!
+			 }else if(type.equals("comment")){
+				 String auk= request.getParameter("auk");
+				 int aukcijaId=Integer.parseInt(auk);
+				 List<Aksporuka> poruke=cartBean.porukaList(aukcijaId);
+				 request.setAttribute("poruke", poruke);
+				 RequestDispatcher rd =  getServletContext().getRequestDispatcher("/ocenaAndcomentars.jsp");
+				 rd.forward(request, response); 
+	}}
 
 }
