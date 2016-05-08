@@ -10,7 +10,7 @@
 <body>
 <form action="/AKSWebClient/MainServlet" method="get">
 	<input type="submit" value="Izlistaj ishode licitacije">
-	<input type="hidden" name="type" value="ishodLicitacije">
+	<input type="hidden" name="type" value="ishodLicitacijeUcestvovao">
 	<c:if test="${!empty aukcijeSveVlasnik}"> 
 	<table>
 	Sve Aukcija gde sam vlasnik:

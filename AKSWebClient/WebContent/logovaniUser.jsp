@@ -29,7 +29,19 @@
 	<input type="submit" value="Pogledaj poruke od prodavca"> 
 </form>
 <form action="/AKSWebClient/ocenaAndcomentars.jsp" method="get">
-	<input type="submit" value="Oceni i komentarisi oglase"> 
+	<input type="submit" value="Oceni i komentarisi oglase kao kupac"> 
+</form>
+<form action="/AKSWebClient/ocenaAndcomentarsKupac.jsp" method="get">
+	<input type="submit" value="Oceni i komentarisi oglase kao prodavac"> 
+</form>
+<form action="/AKSWebClient/ocenaProdavac.jsp" method="get">
+	<input type="submit" value="Pogledaj ocene za prodavce"> 
+</form>
+<form action="/AKSWebClient/ocenaKupac.jsp" method="get">
+	<input type="submit" value="Pogledaj ocene za kupce"> 
+</form>
+<form action="/AKSWebClient/listaGdeSamUcestvovao.jsp" method="get">
+	<input type="submit" value="Izlistaj listu predmeta na kojima sam ucestvovao"> 
 </form>
 	Logovanje je : <%=request.getAttribute("result")%>
 <form action="/AKSWebClient/index.jsp" method="get">

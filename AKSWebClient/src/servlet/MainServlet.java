@@ -19,6 +19,7 @@ import model.Aksponuda;
 import model.Aksporuka;
 import model.Akspredmet;
 import model.Aksaukcija;
+import model.Akskomentar;
 
 /**
  * Servlet implementation class MainServlet
@@ -330,10 +331,69 @@ public class MainServlet extends HttpServlet {
 			 }else if(type.equals("comment")){
 				 String auk= request.getParameter("auk");
 				 int aukcijaId=Integer.parseInt(auk);
-				 List<Aksporuka> poruke=cartBean.porukaList(aukcijaId);
-				 request.setAttribute("poruke", poruke);
+				 String oc= request.getParameter("oc");
+				 String text=request.getParameter("text");
+				 int ocena=Integer.parseInt(oc);
+				 Akskomentar kom=cartBean.novKommentarP(aukcijaId, text, ocena);
+				 if (kom!=null){
+					 request.setAttribute("por", "komentar i ocena su poslati");
+				 }else{
+					 request.setAttribute("por", "komentar i ocena nisu poslati");
+				 }
 				 RequestDispatcher rd =  getServletContext().getRequestDispatcher("/ocenaAndcomentars.jsp");
 				 rd.forward(request, response); 
-	}}
+				 
+				 //Ishod licitacija na kojima sam ucestvovao!!!!
+			 }
+			 else if(type.equals("commentKupac")){
+				 String auk= request.getParameter("auk");
+				 int aukcijaId=Integer.parseInt(auk);
+				 String oc= request.getParameter("oc");
+				 String text=request.getParameter("text");
+				 int ocena=Integer.parseInt(oc);
+				 Akskomentar kom=cartBean.novKommentarK(aukcijaId, text, ocena);
+				 if (kom!=null){
+					 request.setAttribute("por", "komentar i ocena su poslati");
+				 }else{
+					 request.setAttribute("por", "komentar i ocena nisu poslati");
+				 }
+				 RequestDispatcher rd =  getServletContext().getRequestDispatcher("/ocenaAndcomentarsKupac.jsp");
+				 rd.forward(request, response); 
+			 }else if(type.equals("ishodLicitacijeUcestvovao")){
+				 List<Aksaukcija> aukcijeSveVlasnik=cartBean.aukcijeReportP(result.getIme());
+				 List<Aksaukcija> aukcijeSveLicit=cartBean.aukcijeReportK(result.getIme());
+				 List<Aksaukcija> aukcijeUspesneVlasnik=cartBean.aukcijeListP(result.getIme());
+				 List<Aksaukcija> aukcijeUspesneKupac=cartBean.aukcijeListK(result.getIme());
+				 
+				 request.setAttribute("aukcijeSveVlasnik",aukcijeSveVlasnik);
+				 request.setAttribute("aukcijeSveLicit",aukcijeSveLicit);
+				 request.setAttribute("aukcijeUspesneVlasnik",aukcijeUspesneVlasnik);
+				 request.setAttribute("aukcijeUspesneKupac",aukcijeUspesneKupac);
+				
+				 RequestDispatcher rd =  getServletContext().getRequestDispatcher("/listaGdeSamUcestvovao.jsp.jsp");
+				 rd.forward(request, response);
+			 }else if(type.equals("commKup")){
+				 String kupac= request.getParameter("kupac");
+				 List<Akskomentar> kom=cartBean.kommentarP(kupac);
+				 if (kom!=null){
+					 request.setAttribute("KomentariKup", kom);
+				 }else{
+					 request.setAttribute("KomentariKup", null);
+				 }
+				 RequestDispatcher rd =  getServletContext().getRequestDispatcher("/ocenaKupac.jsp");
+				 rd.forward(request, response); 
+			 }
+			 else if(type.equals("commProd")){
+				 String prodavac= request.getParameter("prodavac");
+				 List<Akskomentar> kom=cartBean.kommentarK(prodavac);
+				 if (kom!=null){
+					 request.setAttribute("KomentariProd", kom);
+				 }else{
+					 request.setAttribute("KomentariProd", null);
+				 }
+				 RequestDispatcher rd =  getServletContext().getRequestDispatcher("/ocenaProdavac.jsp");
+				 rd.forward(request, response); 
+			 }
+		 	}
 
 }

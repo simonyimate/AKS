@@ -10,15 +10,15 @@
 <body>
 	<form action="/AKSWebClient/MainServlet" method="get">
 	Izaberite aukcije za koju zelite da ostavite komentar:
-	<c:if test="${!empty aukcijeUspesneKupac}">
+	<c:if test="${!empty aukcijeUspesneVlasnik}">
 	<select name="auk">
-		<c:forEach var="ak" items="${aukcijeUspesneKupac}">
+		<c:forEach var="ak" items="${aukcijeUspesneVlasnik}">
 			<option value="${ak.aukcijaId}">${ak.akspredmet.naziv}</option>
 		</c:forEach>
 		</select>
 	
 	<hr>
-		<input type="hidden" name="type" value="comment">
+		<input type="hidden" name="type" value="commentKupac">
 		Tekst komentara:<input type="text" name="text">
 		Ocena: <select name="oc">
 					<option value="1">*</option>
