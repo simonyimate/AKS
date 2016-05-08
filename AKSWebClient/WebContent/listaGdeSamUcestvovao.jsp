@@ -9,7 +9,7 @@
 </head>
 <body>
 <form action="/AKSWebClient/MainServlet" method="get">
-	<input type="submit" value="Izlistaj sve ishode licitacije">
+	<input type="submit" value="Izlistaj ishode licitacije">
 	<input type="hidden" name="type" value="ishodLicitacije">
 	<c:if test="${!empty aukcijeSveVlasnik}"> 
 	<table>
@@ -37,7 +37,7 @@
 	<hr>
 	<c:if test="${!empty aukcijeSveLicit}"> 
 	<table>
-	Sve Aukcija gde sam licitirao :
+	Sve Aukcija gde sam licitirao:
   		<thead><td>Naziv Predmeta</td><td>Opis Predmeta</td><td>Stanje Predmeta</td><td>Vlasnik Predmeta</td><td>Najveca Ponuda</td><td>Vreme</td><td>Uspesna</td></thead>
   			<c:forEach var="a" items="${aukcijeSveLicit}">
   			<tr>
