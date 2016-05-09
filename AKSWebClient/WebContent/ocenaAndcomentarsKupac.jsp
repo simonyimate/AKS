@@ -20,7 +20,7 @@
 	<hr>
 		<input type="hidden" name="type" value="commentKupac">
 		Tekst komentara:<input type="text" name="text">
-		Ocena: <select name="oc">
+		Vasa ocena: <select name="oc">
 					<option value="1">*</option>
 					<option value="2">**</option>
 					<option value="3">***</option>
