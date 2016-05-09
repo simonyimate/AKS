@@ -24,17 +24,17 @@
   				<td>${a.najvecaponuda}</td>
   				<td>${a.vreme}</td>
   				<c:if test="${a.uspesna==true}"> 
-  					<td><font color="green">${a.uspesna}</font></td>
+  					<td><font color="green">USPESNA</font></td>
   				</c:if>
   				<c:if test="${a.uspesna==false}"> 
-  					<td><font color="red">${a.uspesna}</font></td>
+  					<td><font color="red">NEUSPESNA</font></td>
   				</c:if>
   				
   			</tr>
   			</c:forEach>
   		</table>
 	</c:if>
-	<hr>
+	<%-- <hr>
 	<c:if test="${!empty aukcijeSveLicit}"> 
 	<table>
 	Sve Aukcija gde sam licitirao :
@@ -47,13 +47,12 @@
   				<td>${a.akskorisnik1.username}</td>
   				<td>${a.najvecaponuda}</td>
   				<td>${a.vreme}</td>
-  				<%-- <c:if test2="${==a.}"> --%>
   				<td>${a.uspesna}</td>
   			</tr>
   			</c:forEach>
   		</table>
 	</c:if>
-	<hr>
+	<hr>--%>
 	<%--<c:if test="${!empty aukcijeUspesneVlasnik}"> 
 	<table>
 	Sve uspesne Aukcija gde sam vlasnik:

@@ -16,6 +16,9 @@
 <form action="/AKSWebClient/rezultatiLicitacija.jsp" method="get">
 	<input type="submit" value="Pregledaj ishode licitacija"> 
 </form>
+<form action="/AKSWebClient/listaGdeSamUcestvovao.jsp" method="get">
+	<input type="submit" value="Izlistaj listu predmeta na kojima sam ucestvovao"> 
+</form>
 <form action="/AKSWebClient/poruka.jsp" method="get">
 	<input type="submit" value="Nova poruka za kupca"> 
 </form>
@@ -40,9 +43,7 @@
 <form action="/AKSWebClient/ocenaKupac.jsp" method="get">
 	<input type="submit" value="Pogledaj ocene za kupce"> 
 </form>
-<form action="/AKSWebClient/listaGdeSamUcestvovao.jsp" method="get">
-	<input type="submit" value="Izlistaj listu predmeta na kojima sam ucestvovao"> 
-</form>
+
 	Logovanje je : <%=request.getAttribute("result")%>
 <form action="/AKSWebClient/index.jsp" method="get">
 		<input type="submit" value="NAZAD"> 

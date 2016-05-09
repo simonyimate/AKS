@@ -231,6 +231,14 @@ public class AksMain implements AksMainRemote, AksMainLocal {
         		if ((ocena<1)||(ocena>5)){
         			return null;
         		}
+        		if (auk.getAkskomentars().size()>1)
+        		{
+        			return null;
+        		}
+        		else if (auk.getAkskomentars().get(0).getProdavack()==true)
+        		{
+        			return null;
+        		}
         		Akskomentar kom=new Akskomentar();
         		kom.setAksaukcija(auk);
         		kom.setTekstk(text);        		
@@ -244,7 +252,7 @@ public class AksMain implements AksMainRemote, AksMainLocal {
             	list.add(kom);
             	auk.setAkskomentars(list);
             	em.merge(kom);
-            	em.merge(kom);
+            	em.merge(auk);
             	return kom;
     	}
     	return null;
@@ -254,6 +262,14 @@ public class AksMain implements AksMainRemote, AksMainLocal {
         if (auk!=null)
         {
         		if ((ocena<1)||(ocena>5)){
+        			return null;
+        		}
+        		if (auk.getAkskomentars().size()>1)
+        		{
+        			return null;
+        		}
+        		else if (auk.getAkskomentars().get(0).getProdavack()==false)
+        		{
         			return null;
         		}
         		Akskomentar kom=new Akskomentar();
@@ -269,7 +285,7 @@ public class AksMain implements AksMainRemote, AksMainLocal {
             	list.add(kom);
             	auk.setAkskomentars(list);
             	em.merge(kom);
-            	em.merge(kom);
+            	em.merge(auk);
             	return kom;
     	}
     	return null;

@@ -11,7 +11,7 @@
 <form action="/AKSWebClient/MainServlet" method="get">
 	<input type="submit" value="Izlistaj ishode licitacije">
 	<input type="hidden" name="type" value="ishodLicitacijeUcestvovao">
-	<c:if test="${!empty aukcijeSveVlasnik}"> 
+	<%-- <c:if test="${!empty aukcijeSveVlasnik}"> 
 	<table>
 	Sve Aukcija gde sam vlasnik:
   		<thead><td width="13%">Naziv Predmeta</td><td width="13%">Opis Predmeta</td><td width="13%">Stanje Predmeta</td><td width="13%">Vlasnik Predmeta</td><td width="13%">Najveca Ponuda</td><td width="13%">Vreme</td><td width="13%">Uspesna</td></thead>
@@ -24,16 +24,16 @@
   				<td>${a.najvecaponuda}</td>
   				<td>${a.vreme}</td>
   				<c:if test="${a.uspesna==true}"> 
-  					<td><font color="green">${a.uspesna}</font></td>
+  					<td><font color="green">USPESNA</font></td>
   				</c:if>
   				<c:if test="${a.uspesna==false}"> 
-  					<td><font color="red">${a.uspesna}</font></td>
+  					<td><font color="red">NEUSPESNA</font></td>
   				</c:if>
   				
   			</tr>
   			</c:forEach>
   		</table>
-	</c:if>
+	</c:if>--%>
 	<hr>
 	<c:if test="${!empty aukcijeSveLicit}"> 
 	<table>
@@ -48,7 +48,12 @@
   				<td>${a.najvecaponuda}</td>
   				<td>${a.vreme}</td>
   				<%-- <c:if test2="${==a.}"> --%>
-  				<td>${a.uspesna}</td>
+  				<c:if test="${a.uspesna==true}"> 
+  					<td><font color="green">USPESNA</font></td>
+  				</c:if>
+  				<c:if test="${a.uspesna==false}"> 
+  					<td><font color="red">USPESNA</font></td>
+  				</c:if>
   			</tr>
   			</c:forEach>
   		</table>

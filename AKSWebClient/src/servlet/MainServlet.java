@@ -62,7 +62,7 @@ public class MainServlet extends HttpServlet {
 			 try{
 				 InitialContext ic = new InitialContext();
 				 cartBean = (AksMainLocal)
-						 ic.lookup("java:global/AKSEAR/AKSEJB/AksMain!bean.AksMainLocal");
+						 ic.lookup("java:global/AKSEAR2/AKSEJB/AksMain!bean.AksMainLocal");
 				 //
 				 request.getSession().setAttribute(CART_SESSION_KEY, cartBean);
 				 
@@ -370,11 +370,11 @@ public class MainServlet extends HttpServlet {
 				 request.setAttribute("aukcijeUspesneVlasnik",aukcijeUspesneVlasnik);
 				 request.setAttribute("aukcijeUspesneKupac",aukcijeUspesneKupac);
 				
-				 RequestDispatcher rd =  getServletContext().getRequestDispatcher("/listaGdeSamUcestvovao.jsp.jsp");
+				 RequestDispatcher rd =  getServletContext().getRequestDispatcher("/listaGdeSamUcestvovao.jsp");
 				 rd.forward(request, response);
 			 }else if(type.equals("commKup")){
 				 String kupac= request.getParameter("kupac");
-				 List<Akskomentar> kom=cartBean.kommentarP(kupac);
+				 List<Akskomentar> kom=cartBean.kommentarK(kupac);
 				 if (kom!=null){
 					 request.setAttribute("KomentariKup", kom);
 				 }else{
@@ -385,7 +385,7 @@ public class MainServlet extends HttpServlet {
 			 }
 			 else if(type.equals("commProd")){
 				 String prodavac= request.getParameter("prodavac");
-				 List<Akskomentar> kom=cartBean.kommentarK(prodavac);
+				 List<Akskomentar> kom=cartBean.kommentarP(prodavac);
 				 if (kom!=null){
 					 request.setAttribute("KomentariProd", kom);
 				 }else{
