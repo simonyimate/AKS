@@ -293,14 +293,14 @@ public class AksMain implements AksMainRemote, AksMainLocal {
     
     public List<Akskomentar> kommentarP(String username){
     	TypedQuery<Akskomentar> query = em.createQuery
-    									("SELECT kom FROM Akskomentar kom WHERE kom.aksaukcija.akskorisnik1.username = :username ORDER BY kom.aksaukcija.vreme",
+    									("SELECT kom FROM Akskomentar kom WHERE (kom.aksaukcija.akskorisnik1.username = :username AND kom. prodavack = 0) ORDER BY kom.aksaukcija.vreme",
                 Akskomentar.class);
     	query.setParameter("username", username);
         return query.getResultList();
     }
     public List<Akskomentar> kommentarK(String username){
     	TypedQuery<Akskomentar> query = em.createQuery
-    									("SELECT kom FROM Akskomentar kom WHERE kom.aksaukcija.akskorisnik2.username = :username ORDER BY kom.aksaukcija.vreme",
+    									("SELECT kom FROM Akskomentar kom WHERE (kom.aksaukcija.akskorisnik2.username = :username AND kom. prodavack = 0) ORDER BY kom.aksaukcija.vreme",
                 Akskomentar.class);
     	query.setParameter("username", username);
         return query.getResultList();

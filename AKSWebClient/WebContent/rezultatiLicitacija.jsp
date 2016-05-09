@@ -12,6 +12,7 @@
 	<input type="submit" value="Izlistaj sve ishode licitacije">
 	<input type="hidden" name="type" value="ishodLicitacije">
 	<c:if test="${!empty aukcijeSveVlasnik}"> 
+    <hr>
 	<table>
 	Sve Aukcija gde sam vlasnik:
   		<thead><td width="13%">Naziv Predmeta</td><td width="13%">Opis Predmeta</td><td width="13%">Stanje Predmeta</td><td width="13%">Vlasnik Predmeta</td><td width="13%">Najveca Ponuda</td><td width="13%">Vreme</td><td width="13%">Uspesna</td></thead>
@@ -33,6 +34,7 @@
   			</tr>
   			</c:forEach>
   		</table>
+    <hr>  
 	</c:if>
 	<%-- <hr>
 	<c:if test="${!empty aukcijeSveLicit}"> 

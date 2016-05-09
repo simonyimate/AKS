@@ -7,14 +7,14 @@
 <title>Glavni meni</title>
 </head>
 <body>
-<form action="/AKSWebClient/login.jsp" method="get">
-		<input type="submit" value="Login">
+	<form action="/AKSWebClient/login.jsp" method="get">
+		<input type="submit" value="Login" style="height:50px;width:200px">
 	</form>
 	<form action="/AKSWebClient/registracija.jsp" method="get">
-		<input type="submit" value="Registracija">
+		<input type="submit" value="Registracija" style="height:50px;width:200px">
 	</form>
 	<form action="/AKSWebClient/Izlistaj.jsp" method="get">
-		<input type="submit" value="Izlistavanje">
+		<input type="submit" value="Izlistavanje" style="height:50px;width:200px">
 	</form>
 	
 </body>

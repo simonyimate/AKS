@@ -13,14 +13,32 @@ Unesite ime prodavca za koji zelite da vidite komentare:<input type="text" name=
 	<input type="submit" value="Prikazi komentare i ocene">
 	<input type="hidden" name="type" value="commProd">
 	<c:if test="${!empty KomentariProd}"> 
-	<c:forEach var="k" items="${KomentariKup}">
+	<table>
+	<thead><td  width="13%">Komentar</td><td  width="13%">Ocena</td><td  width="13%">Naziv Predmeta</td></thead>	
+	<c:forEach var="k" items="${KomentariProd}">
   			<tr>
   				<td>${k.tekstk}</td>
-  				<td>${k.ocena}</td>
-  				
+  				<c:if test="${k.ocena==1}"> 
+  					<td><font color="red">*</font></td>
+  				</c:if>
+  				<c:if test="${k.ocena==2}"> 
+  					<td><font color="orange">**</font></td>
+  				</c:if>
+  				<c:if test="${k.ocena==3}"> 
+  					<td><font color="yellow">***</font></td>
+  				</c:if>
+  				<c:if test="${k.ocena==4}"> 
+  					<td><font color="lightgreen">****</font></td>
+  				</c:if>
+  				<c:if test="${k.ocena==5}"> 
+  					<td><font color="green">*****</font></td>
+  				</c:if>
+  				<td>${k.aksaukcija.akspredmet.naziv}</td>
   			</tr>
   			</c:forEach>
+	</table>
 	</c:if>
+	
 </form>
 	<form action="/AKSWebClient/logovaniUser.jsp" method="get">
 		<input type="submit" value="NAZAD"> 

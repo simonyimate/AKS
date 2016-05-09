@@ -9,36 +9,13 @@
 </head>
 <body>
 <form action="/AKSWebClient/MainServlet" method="get">
-	<input type="submit" value="Izlistaj ishode licitacije">
+	<input type="submit" value="Izlistaj licitacije gde sam ucestvovao">
 	<input type="hidden" name="type" value="ishodLicitacijeUcestvovao">
-	<%-- <c:if test="${!empty aukcijeSveVlasnik}"> 
-	<table>
-	Sve Aukcija gde sam vlasnik:
-  		<thead><td width="13%">Naziv Predmeta</td><td width="13%">Opis Predmeta</td><td width="13%">Stanje Predmeta</td><td width="13%">Vlasnik Predmeta</td><td width="13%">Najveca Ponuda</td><td width="13%">Vreme</td><td width="13%">Uspesna</td></thead>
-  			<c:forEach var="a" items="${aukcijeSveVlasnik}">
-  			<tr>
-  				<td>${a.akspredmet.naziv}</td>
-  				<td>${a.akspredmet.opis}</td>
-  				<td>${a.akspredmet.stanje}</td>
-  				<td>${a.akskorisnik1.username}</td>
-  				<td>${a.najvecaponuda}</td>
-  				<td>${a.vreme}</td>
-  				<c:if test="${a.uspesna==true}"> 
-  					<td><font color="green">USPESNA</font></td>
-  				</c:if>
-  				<c:if test="${a.uspesna==false}"> 
-  					<td><font color="red">NEUSPESNA</font></td>
-  				</c:if>
-  				
-  			</tr>
-  			</c:forEach>
-  		</table>
-	</c:if>--%>
-	<hr>
 	<c:if test="${!empty aukcijeSveLicit}"> 
+	<hr>
 	<table>
 	Sve Aukcija gde sam licitirao:
-  		<thead><td>Naziv Predmeta</td><td>Opis Predmeta</td><td>Stanje Predmeta</td><td>Vlasnik Predmeta</td><td>Najveca Ponuda</td><td>Vreme</td><td>Uspesna</td></thead>
+  		<thead><td  width="13%">Naziv Predmeta</td><td  width="13%">Opis Predmeta</td><td  width="13%">Stanje Predmeta</td><td  width="13%">Vlasnik Predmeta</td><td  width="13%">Najveca Ponuda</td><td  width="13%">Vreme</td><td  width="13%">Uspesna</td></thead>
   			<c:forEach var="a" items="${aukcijeSveLicit}">
   			<tr>
   				<td>${a.akspredmet.naziv}</td>
@@ -57,45 +34,8 @@
   			</tr>
   			</c:forEach>
   		</table>
-	</c:if>
 	<hr>
-	<%--<c:if test="${!empty aukcijeUspesneVlasnik}"> 
-	<table>
-	Sve uspesne Aukcija gde sam vlasnik:
-  		<thead><td>Naziv Predmeta</td><td>Opis Predmeta</td><td>Stanje Predmeta</td><td>Vlasnik Predmeta</td><td>Najveca Ponuda</td><td>Vreme</td><td>Uspesna</td></thead>
-  			<c:forEach var="a" items="${aukcijeUspesneVlasnik}">
-  			<tr>
-  				<td>${a.akspredmet.naziv}</td>
-  				<td>${a.akspredmet.opis}</td>
-  				<td>${a.akspredmet.stanje}</td>
-  				<td>${a.akskorisnik1.username}</td>
-  				<td>${a.najvecaponuda}</td>
-  				<td>${a.vreme}</td>--%>
-  				<%-- <c:if test2="${==a.}"> --%>
-  				<%-- <td>${a.uspesna}</td>
-  			</tr>
-  			</c:forEach>
-  		</table>
 	</c:if>
-	<hr>
-	<c:if test="${!empty aukcijeUspesneKupac}"> 
-	<table>
-	Sve uspesne Aukcija gde sam kupac:
-  		<thead><td>Naziv Predmeta</td><td>Opis Predmeta</td><td>Stanje Predmeta</td><td>Vlasnik Predmeta</td><td>Najveca Ponuda</td><td>Vreme</td><td>Uspesna</td></thead>
-  			<c:forEach var="a" items="${aukcijeUspesneKupac}">
-  			<tr>
-  				<td>${a.akspredmet.naziv}</td>
-  				<td>${a.akspredmet.opis}</td>
-  				<td>${a.akspredmet.stanje}</td>
-  				<td>${a.akskorisnik1.username}</td>
-  				<td>${a.najvecaponuda}</td>
-  				<td>${a.vreme}</td>--%>
-  				<%-- <c:if test2="${==a.}"> --%>
-  				<%--<td>${a.uspesna}</td>
-  			</tr>
-  			</c:forEach>
-  		</table>
-	</c:if>--%>
 </form>
 </form>
 	<form action="/AKSWebClient/logovaniUser.jsp" method="get">

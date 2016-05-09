@@ -8,40 +8,40 @@
 </head>
 <body>
 	<form action="/AKSWebClient/Izlistaj.jsp" method="get">
-	<input type="submit" value="Izlistavanje detalja"> 
+	<input type="submit" value="Izlistavanje detalja" style="height:30px;width:300px"> 
 </form>
 <form action="/AKSWebClient/unosAukcije.jsp" method="get">
-	<input type="submit" value="Unos nove aukcije"> 
+	<input type="submit" value="Unos nove aukcije" style="height:30px;width:300px"> 
 </form>
 <form action="/AKSWebClient/rezultatiLicitacija.jsp" method="get">
-	<input type="submit" value="Pregledaj ishode licitacija"> 
+	<input type="submit" value="Pregledaj ishode licitacija" style="height:30px;width:300px"> 
 </form>
 <form action="/AKSWebClient/listaGdeSamUcestvovao.jsp" method="get">
-	<input type="submit" value="Izlistaj listu predmeta na kojima sam ucestvovao"> 
+	<input type="submit" value="Izlistaj listu predmeta na kojima sam ucestvovao" style="height:30px;width:300px"> 
 </form>
 <form action="/AKSWebClient/poruka.jsp" method="get">
-	<input type="submit" value="Nova poruka za kupca"> 
+	<input type="submit" value="Nova poruka za kupca" style="height:30px;width:300px"> 
 </form>
 <form action="/AKSWebClient/prodavacPoruka.jsp" method="get">
-	<input type="submit" value="Nova poruka za prodavca"> 
+	<input type="submit" value="Nova poruka za prodavca" style="height:30px;width:300px"> 
 </form>
 <form action="/AKSWebClient/pogledajPorukuKupac.jsp" method="get">
-	<input type="submit" value="Pogledaj poruke od kupca"> 
+	<input type="submit" value="Pogledaj poruke od kupca" style="height:30px;width:300px"> 
 </form>
 <form action="/AKSWebClient/pogledajPorukuProdavac.jsp" method="get">
-	<input type="submit" value="Pogledaj poruke od prodavca"> 
+	<input type="submit" value="Pogledaj poruke od prodavca" style="height:30px;width:300px"> 
 </form>
 <form action="/AKSWebClient/ocenaAndcomentars.jsp" method="get">
-	<input type="submit" value="Oceni i komentarisi oglase kao kupac"> 
+	<input type="submit" value="Oceni i komentarisi oglase kao kupac" style="height:30px;width:300px"> 
 </form>
 <form action="/AKSWebClient/ocenaAndcomentarsKupac.jsp" method="get">
-	<input type="submit" value="Oceni i komentarisi oglase kao prodavac"> 
+	<input type="submit" value="Oceni i komentarisi oglase kao prodavac" style="height:30px;width:300px"> 
 </form>
 <form action="/AKSWebClient/ocenaProdavac.jsp" method="get">
-	<input type="submit" value="Pogledaj ocene za prodavce"> 
+	<input type="submit" value="Pogledaj ocene za prodavce" style="height:30px;width:300px"> 
 </form>
 <form action="/AKSWebClient/ocenaKupac.jsp" method="get">
-	<input type="submit" value="Pogledaj ocene za kupce"> 
+	<input type="submit" value="Pogledaj ocene za kupce" style="height:30px;width:300px"> 
 </form>
 
 	Logovanje je : <%=request.getAttribute("result")%>
