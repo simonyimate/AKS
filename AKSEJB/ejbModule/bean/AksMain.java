@@ -293,7 +293,7 @@ public class AksMain implements AksMainRemote, AksMainLocal {
     
     public List<Akskomentar> kommentarP(String username){
     	TypedQuery<Akskomentar> query = em.createQuery
-    									("SELECT kom FROM Akskomentar kom WHERE (kom.aksaukcija.akskorisnik1.username = :username AND kom. prodavack = 0) ORDER BY kom.aksaukcija.vreme",
+    									("SELECT kom FROM Akskomentar kom WHERE (kom.aksaukcija.akskorisnik1.username = :username AND kom. prodavack = 1) ORDER BY kom.aksaukcija.vreme",//1 nije 0
                 Akskomentar.class);
     	query.setParameter("username", username);
         return query.getResultList();
@@ -630,6 +630,27 @@ public class AksMain implements AksMainRemote, AksMainLocal {
         	list=new LinkedList<Aksporuka>();
         }*/
     	return list;
+    }
+    
+    public Aksaukcija aukcijeNajskoroIstice(){
+    	TypedQuery<Aksaukcija> query = em.createQuery
+    									("SELECT auk FROM Aksaukcija auk WHERE (auk.vreme>:vreme) ORDER BY auk.vreme",
+                Aksaukcija.class);
+    	Date d=new Date();
+    	d.setTime(d.getTime());
+    	SimpleDateFormat ft = new SimpleDateFormat ("yyyy.MM.dd HH:mm:ss");
+    	String vreme=ft.format(d);
+    	query.setParameter("vreme", vreme);
+        List<Aksaukcija> list = query.getResultList(); 
+        return list.get(0);
+    }
+    
+    public Aksaukcija aukcijeNajnovija(){
+    	TypedQuery<Aksaukcija> query = em.createQuery
+    									("SELECT auk FROM Aksaukcija auk ORDER BY auk.aukcijaId",
+                Aksaukcija.class);
+    	List<Aksaukcija> list = query.getResultList(); 
+        return list.get(list.size()-1);
     }
 
 

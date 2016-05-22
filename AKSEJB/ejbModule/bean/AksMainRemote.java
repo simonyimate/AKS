@@ -42,4 +42,6 @@ public interface AksMainRemote {
 	 public List<Aksaukcija> aukcijeListP(String vlasnik);
 	 public List<Aksaukcija> aukcijeListK(String vlasnik);
 	 public List<Aksporuka> porukaList(int aukcijaId);
+	 public Aksaukcija aukcijeNajskoroIstice();
+	 public Aksaukcija aukcijeNajnovija();
 }
