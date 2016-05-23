@@ -44,4 +44,5 @@ public interface AksMainRemote {
 	 public List<Aksporuka> porukaList(int aukcijaId);
 	 public Aksaukcija aukcijeNajskoroIstice();
 	 public Aksaukcija aukcijeNajnovija();
+	 public List<Akskorisnik> BestKommentars();
 }

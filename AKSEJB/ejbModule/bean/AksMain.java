@@ -652,6 +652,81 @@ public class AksMain implements AksMainRemote, AksMainLocal {
     	List<Aksaukcija> list = query.getResultList(); 
         return list.get(list.size()-1);
     }
+    
+    @SuppressWarnings("deprecation")
+	public List<Akskorisnik> BestKommentars(){
+    	TypedQuery<Akskomentar> query = em.createQuery
+    									("SELECT kom FROM Akskomentar kom WHERE (kom.datumk>:vreme)",
+                Akskomentar.class);
+    	Date d=new Date();
+    	d.setTime(d.getTime());
+    	SimpleDateFormat ft = new SimpleDateFormat ("yyyy.MM.dd HH:mm:ss");
+    	d.setMonth(((d.getMonth()-1)%12) );
+    	String vreme=ft.format(d);
+    	query.setParameter("vreme", vreme);
+    	List<Akskomentar> list=query.getResultList();
+    	List<Akskorisnik> list2=new LinkedList<>();
+    	List<Akskorisnik> list3=new LinkedList<>();
+    	Akskorisnik korisnik=null;
+    	for (Akskomentar akskomentar : list) {
+			if (akskomentar.getProdavack())
+			{
+				korisnik=akskomentar.getAksaukcija().getAkskorisnik2();
+			}
+			if (!akskomentar.getProdavack())
+			{
+				korisnik=akskomentar.getAksaukcija().getAkskorisnik1();
+			}
+			if (!list2.contains(korisnik))
+			{
+				list2.add(korisnik);
+			}
+		}
+    	int[] niz=new int[list2.size()];
+    	int[] niz2=new int[list2.size()];
+    	double[] niz3=new double[list2.size()];
+    	for (Akskomentar akskomentar : list) {
+			if (akskomentar.getProdavack())
+			{
+				korisnik=akskomentar.getAksaukcija().getAkskorisnik2();
+			}
+			if (!akskomentar.getProdavack())
+			{
+				korisnik=akskomentar.getAksaukcija().getAkskorisnik1();
+			}
+			if (!list2.contains(korisnik))
+			{
+				int i=list2.indexOf(korisnik);
+				niz[i]=akskomentar.getOcena();
+				niz2[i]++;
+				niz3[i]=niz[i]/niz2[i];
+			}
+		}
+    	double max;
+    	int pos;
+    	
+    	for (int i = 0; i < niz3.length; i++) {
+    		pos=0;
+    		max=0;
+    		for (int j = 0; i < niz3.length; j++) {
+    			if (niz3[j]>max)
+    			{
+    				pos=j;
+    				max=niz3[j];
+    			}
+    		}
+    		list3.add(list2.get(pos));
+    		niz3[pos]=-1;
+		}
+    	LinkedList<Akskorisnik> list4=new LinkedList<>();
+    	for (int i = 0; i < 5; i++) {
+			if (list3.size()>i)
+			{
+				list4.add(list3.get(i));
+			}
+		}
+        return list4;
+    }
 
 
 }
