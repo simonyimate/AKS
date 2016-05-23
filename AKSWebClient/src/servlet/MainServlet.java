@@ -394,6 +394,22 @@ public class MainServlet extends HttpServlet {
 				 RequestDispatcher rd =  getServletContext().getRequestDispatcher("/ocenaProdavac.jsp");
 				 rd.forward(request, response); 
 			 }
+			 else if(type.equals("prikazNove")){
+				 Aksaukcija aks=cartBean.aukcijeNajnovija();
+				 List<Aksaukcija> aukcijeNove=new ArrayList<Aksaukcija>();
+				 aukcijeNove.add(aks);
+				 request.setAttribute("aukcijeNove", aukcijeNove);
+				 RequestDispatcher rd =  getServletContext().getRequestDispatcher("/prikazNajnovijih.jsp");
+				 rd.forward(request, response); 
+			 }
+			 else if(type.equals("prikazIstice")){
+				 Aksaukcija aks=cartBean.aukcijeNajskoroIstice();
+				 List<Aksaukcija> aukcijeIsticu=new ArrayList<Aksaukcija>();
+				 aukcijeIsticu.add(aks);
+				 request.setAttribute("aukcijeIsticu", aukcijeIsticu);
+				 RequestDispatcher rd =  getServletContext().getRequestDispatcher("/prikazNajskorijeIstice.jsp");
+				 rd.forward(request, response); 
+			 }
 		 	}
 
 }

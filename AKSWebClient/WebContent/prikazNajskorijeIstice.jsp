@@ -1,11 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Glavni meni</title>
-
 <link href="css/src/css/buttons.css" rel="stylesheet" type="text/css"/>
 <link href="css/src/css/input.css" rel="stylesheet" type="text/css"/>
 <link href="css/src/css/header.css" rel="stylesheet" type="text/css"/>
@@ -24,26 +21,35 @@
 <link href="css/src/css/alert.css" rel="stylesheet" type="text/css"/>
 <link href="css/src/css/tables.css" rel="stylesheet" type="text/css"/>
 <link href="css/src/css/card.css" rel="stylesheet" type="text/css"/>
-
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Prikaz aukcije koja najskorije istice</title>
 </head>
 <body>
-	<form action="/AKSWebClient/login.jsp" method="get">
-		<input type="submit" value="Login" style="height:50px;width:200px">
-	</form>
-	<form action="/AKSWebClient/registracija.jsp" method="get">
-		<input type="submit" value="Registracija" style="height:50px;width:200px">
-	</form>
-	<form action="/AKSWebClient/Izlistaj.jsp" method="get">
-		<input type="submit" value="Izlistavanje" style="height:50px;width:200px">
-	</form>
-	<form action="/AKSWebClient/prikazNajnovijih.jsp" method="get">
-		<input type="hidden" name="type" value="prikazNove">
-		<input type="submit" value="Prikaz najnovije aukcije" style="height:50px;width:200px">
-	</form>
-	<form action="/AKSWebClient/prikazNajskorijeIstice.jsp" method="get">
-		<input type="hidden" name="type" value="prikazIstice">
-		<input type="submit" value="Prikaz aukcije koja najskorije istice" style="height:50px;width:200px">
-	</form>
+<c:if test="${!empty aukcije}">
+	Ne postoji aukcija koja najskorije istice!
+</c:if>
 	
+	<c:if test="${!empty aukcijeIsticu}"> 
+	<br>Aukcija koja najskorije istice: 
+  		<table>
+  		<thead><td width="13%">Naziv Predmeta</td><td width="13%">Opis Predmeta</td><td width="13%">Stanje Predmeta</td><td width="13%">Vlasnik Predmeta</td><td width="13%">Najveca Ponuda</td><td width="13%">Vreme</td></thead>
+  			<c:forEach var="a" items="${aukcijeIsticu}">
+  			<tr>
+  				<td>${a.akspredmet.naziv}</td>
+  				<td>${a.akspredmet.opis}</td>
+  				<td>${a.akspredmet.stanje}</td>
+  				<td>${a.akskorisnik1.username}</td>
+  				<td>${a.najvecaponuda}</td>
+  				<td>${a.vreme}</td>
+  				
+  				
+  			</tr>
+  			</c:forEach>
+  		</table>
+  		</c:if>
+	<form action="/AKSWebClient/index.jsp" method="get">
+		<input type="submit" value="NAZAD"> 
+	</form>
 </body>
 </html>
