@@ -44,7 +44,7 @@
 				<option value="neispravno">neispravno</option>
 			</select>
 			Pocetna Cena:<input type="text" name="pocetnaCena">
-			Path slike:<input type="text" name="slika">
+			Path slike:<input type="file" name="slika" accept="image/*">
 			<hr>
 			Dodatne informacije o aukciji:<br>
 			Dan: <input type="text" name="dan">
