@@ -27,8 +27,9 @@
 <link href="css/src/css/card.css" rel="stylesheet" type="text/css"/>
 
 </head>
-<body>
-	<form action="/AKSWebClient/MainServlet" method="get">
+<body bgcolor="C8D7E3">
+<br>
+<CENTER><form action="/AKSWebClient/MainServlet" method="get">
 	Izaberite aukcije za koju zelite da posaljete poruku kupcu:
 	<c:if test="${!empty aukcijeUspesneVlasnik}">
 	<select name="auk">
@@ -46,7 +47,10 @@
 </form>
 	
 <form action="/AKSWebClient/logovaniUser.jsp" method="get">
-		<input type="submit" value="NAZAD"> 
+		<input type="submit" value="NAZAD">
+		<br>
+		<br> 
 		</form>
+		</CENTER>
 </body>
 </html>
