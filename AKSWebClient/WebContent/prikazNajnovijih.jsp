@@ -32,7 +32,7 @@
 </c:if>
 	
 	<c:if test="${!empty aukcijeNove}"> 
-	<br>Najnovije aukcije : 
+	<br>Najnovije aukcije : <br>
   		<table>
   		<thead><td width="13%">Naziv Predmeta</td><td width="13%">Opis Predmeta</td><td width="13%">Stanje Predmeta</td><td width="13%">Vlasnik Predmeta</td><td width="13%">Najveca Ponuda</td><td width="13%">Vreme</td></thead>
   			<c:forEach var="a" items="${aukcijeNove}">

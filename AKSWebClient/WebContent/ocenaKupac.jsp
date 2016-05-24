@@ -31,7 +31,7 @@
 <br>
 <CENTER><form action="/AKSWebClient/MainServlet" method="get">
 Unesite ime kupca za koji zelite da vidite komentare:<input type="text" name="kupac">
-	<input type="submit" value="Prikazi komentare i ocene">
+	<input type="submit" value="Prikazi komentare i ocene"><br><br>
 	<input type="hidden" name="type" value="commKup">
 	<c:if test="${!empty KomentariKup}"> 
 	<table>

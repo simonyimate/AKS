@@ -41,8 +41,13 @@
 	<hr>
 		<input type="hidden" name="type" value="porukaProdavac">
 		Tekst poruke<input type="text" name="text">
+		<c:if test="${!empty por}">
 		<%=request.getAttribute("por")%>
+		</c:if>
+		
 	<input type="submit" value="Posalji"> 
+	<br>
+	<br>
 	</c:if>
 </form>
 	

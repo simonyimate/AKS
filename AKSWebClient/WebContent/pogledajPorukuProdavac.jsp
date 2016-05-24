@@ -41,7 +41,11 @@
 	
 	<input type="submit" value="Prikazi poruke">
 	<c:if test="${!empty poruke}">
-	Poruke:  
+	<br>
+	<br>
+	Poruke:
+	<br> 
+	<br>
 	<table>
   		<thead><td>Datum Poruke</td><td>Tekst Poruke</td><td>Aukcija za koju se odnosi</td><td>Ko je poslao</td></thead>
   			<c:forEach var="p" items="${poruke}">

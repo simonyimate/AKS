@@ -48,8 +48,14 @@
 					<option value="4">****</option>
 					<option value="5">*****</option>
 				</select>
+		<c:if test="${!empty por}">
 		<%=request.getAttribute("por")%>
+		</c:if>
+		<br>
+		<br>
 	<input type="submit" value="Posalji"> 
+	<br>
+	<br>
 	</c:if>
 </form>
 	
