@@ -26,23 +26,24 @@
 <link href="css/src/css/card.css" rel="stylesheet" type="text/css"/>
 
 </head>
-<body>
+<body bgcolor="C8D7E3">
+	<br>
 	<form action="/AKSWebClient/login.jsp" method="get">
-		<input type="submit" value="Login" style="height:50px;width:200px">
+		<CENTER><input type="submit" value="Login" style="height:50px;width:300px"></CENTER></br>
 	</form>
 	<form action="/AKSWebClient/registracija.jsp" method="get">
-		<input type="submit" value="Registracija" style="height:50px;width:200px">
+		<CENTER><input type="submit" value="Registracija" style="height:50px;width:300px"></CENTER></br>
 	</form>
 	<form action="/AKSWebClient/Izlistaj.jsp" method="get">
-		<input type="submit" value="Izlistavanje" style="height:50px;width:200px">
+		<CENTER><input type="submit" value="Izlistavanje" style="height:50px;width:300px"></CENTER></br>
 	</form>
-	<form action="/AKSWebClient/prikazNajnovijih.jsp" method="get">
-		<input type="hidden" name="type" value="prikazNove">
-		<input type="submit" value="Prikaz najnovije aukcije" style="height:50px;width:200px">
+	<form action="/AKSWebClient/MainServlet" method="get">
+		<CENTER><input type="hidden" name="type" value="prikazNove"></CENTER>
+		<CENTER><input type="submit" value="Prikaz najnovije aukcije" style="height:50px;width:300px"></CENTER></br>
 	</form>
-	<form action="/AKSWebClient/prikazNajskorijeIstice.jsp" method="get">
-		<input type="hidden" name="type" value="prikazIstice">
-		<input type="submit" value="Prikaz aukcije koja najskorije istice" style="height:50px;width:200px">
+	<form action="/AKSWebClient/MainServlet" method="get">
+		<CENTER><input type="hidden" name="type" value="prikazIstice"></CENTER>
+		<CENTER><input type="submit" value="Prikaz aukcije koja najskorije istice" style="height:50px;width:300px"></CENTER></br>
 	</form>
 	
 </body>
