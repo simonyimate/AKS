@@ -26,7 +26,9 @@
 <link href="css/src/css/card.css" rel="stylesheet" type="text/css"/>
 
 </head>
-<body>
+<body bgcolor="C8D7E3">
+<br>
+<CENTER>
 <form action="/AKSWebClient/MainServlet" method="get">
 		<table>
 		<tr><td>Filtriraj po</td><td>
@@ -78,7 +80,9 @@
   		</c:if>
 </form>
 	<form action="/AKSWebClient/index.jsp" method="get">
+		<br>
+		<br>
 		<input type="submit" value="NAZAD"> 
-	</form>
+	</form></CENTER>
 </body>
 </html>

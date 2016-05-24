@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -26,8 +27,10 @@
 <link href="css/src/css/card.css" rel="stylesheet" type="text/css"/>
 
 </head>
-<body>
-<form action="/AKSWebClient/MainServlet" method="get">
+<body bgcolor="C8D7E3">
+<br>
+	 <CENTER><img src="http://s33.postimg.org/u2v8i5ncv/title.jpg" alt="title" height="200" width="800"></CENTER>
+<CENTER><form action="/AKSWebClient/MainServlet" method="get">
 		<table>
 		<tr><td>Ime: </td><td><input type="text" name="ime"></td></tr>
 		<tr><td>Prezime: </td><td><input type="text" name="prezime"></td></tr>
@@ -38,9 +41,16 @@
 		</table>
 	<input type="submit" value="Registracija"> 
 </form>
-	Registracija je : <%=request.getAttribute("result")%>
+	<c:if test="${result==true}">
+		<br>
+	Registracija je uspesna!
+	<br>
+	<br>
+	</c:if>
 <form action="/AKSWebClient/index.jsp" method="get">
+		<br>
+		<br>
 		<input type="submit" value="NAZAD"> 
-		</form>
+		</form></CENTER>
 </body>
 </html>

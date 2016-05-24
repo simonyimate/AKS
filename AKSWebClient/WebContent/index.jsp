@@ -27,8 +27,8 @@
 
 </head>
 <body bgcolor="C8D7E3">
-	<br>
-	
+	 <br>
+	 <CENTER><img src="http://s33.postimg.org/u2v8i5ncv/title.jpg" alt="title" height="200" width="800"></CENTER>
 	<form action="/AKSWebClient/login.jsp" method="get">
 		<CENTER><input type="submit" value="Login" style="height:50px;width:300px"></CENTER></br>
 	</form>

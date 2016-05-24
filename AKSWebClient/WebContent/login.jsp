@@ -26,18 +26,22 @@
 <link href="css/src/css/card.css" rel="stylesheet" type="text/css"/>
 
 </head>
-<body>
+<body bgcolor="C8D7E3">
+<br>
+	 <CENTER><img src="http://s33.postimg.org/u2v8i5ncv/title.jpg" alt="title" height="200" width="800"></CENTER>
 <form action="/AKSWebClient/MainServlet" method="get">
-		<table>
+		<CENTER><table>
 		<tr><td>UserName:  </td><td><input type="text" name="userName"></td></tr>
 		<input type="hidden" name="type" value="login">
 		<tr><td>Password:  </td><td><input type="text" name="password"></td></tr>
-		</table>
-	<input type="submit" value="Login"> 
+		</table></CENTER>
+	<CENTER><input type="submit" value="Login"></CENTER> 
+	<br>
+	<br>
 </form>
 	<%--Logovanje je : <%=request.getAttribute("result")%> --%>
 <form action="/AKSWebClient/index.jsp" method="get">
-		<input type="submit" value="NAZAD"> 
+		<CENTER><input type="submit" value="NAZAD"></CENTER> 
 		</form>
 </body>
 </html>

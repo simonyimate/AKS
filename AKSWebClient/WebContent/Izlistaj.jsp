@@ -27,8 +27,9 @@
 <link href="css/src/css/card.css" rel="stylesheet" type="text/css"/>
 
 </head>
-<body>
-<form action="/AKSWebClient/MainServlet" method="get">
+<body bgcolor="C8D7E3">
+<br>
+<CENTER><form action="/AKSWebClient/MainServlet" method="get">
 		<table>
 		<tr><td>Filtriraj po</td><td>
 		<select name="tip2">
@@ -98,10 +99,14 @@
 			 
 		<%--</c:if>--%>
 	</c:if>
-	 <%=request.getAttribute("lic")%>
+	<c:if test="${!empty lic}"> 
+	 	<%=request.getAttribute("lic")%>
+	 </c:if>
 </form>
 	<form action="/AKSWebClient/index.jsp" method="get">
+		<br>
+		<br>
 		<input type="submit" value="NAZAD"> 
-	</form>
+	</form></CENTER>
 </body>
 </html>

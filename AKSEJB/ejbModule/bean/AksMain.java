@@ -677,7 +677,14 @@ public class AksMain implements AksMainRemote, AksMainLocal {
 			{
 				korisnik=akskomentar.getAksaukcija().getAkskorisnik1();
 			}
-			if (!list2.contains(korisnik))
+			Akskorisnik korisnik2=null;
+			for (Akskorisnik akskorisnik : list2) {
+				if (akskorisnik.getUsername().equals(korisnik.getUsername()))
+				{
+					korisnik2=akskorisnik;
+				}
+			}
+			if (korisnik2==null)
 			{
 				list2.add(korisnik);
 			}
@@ -694,10 +701,21 @@ public class AksMain implements AksMainRemote, AksMainLocal {
 			{
 				korisnik=akskomentar.getAksaukcija().getAkskorisnik1();
 			}
-			if (!list2.contains(korisnik))
+			Akskorisnik korisnik2=null;
+			int kid=0;
+			for (Akskorisnik akskorisnik : list2) {
+				
+				if (akskorisnik.getUsername().equals(korisnik.getUsername()))
+				{
+					korisnik2=akskorisnik;
+					break;
+				}
+				kid++;
+			}
+			if (korisnik2!=null)
 			{
-				int i=list2.indexOf(korisnik);
-				niz[i]=akskomentar.getOcena();
+				int i=kid;//list2.indexOf(korisnik);
+				niz[i]+=akskomentar.getOcena();
 				niz2[i]++;
 				niz3[i]=niz[i]/niz2[i];
 			}
@@ -705,10 +723,28 @@ public class AksMain implements AksMainRemote, AksMainLocal {
     	double max;
     	int pos;
     	
+    	System.out.println("list2");
+    	for (Akskorisnik k : list2) {
+			System.out.println(k.getUsername());
+		}
+    	System.out.println("niz1");
+    	for (int i : niz) {
+			System.out.println(i);
+		}
+    	System.out.println("niz2");
+    	for (int i : niz2) {
+			System.out.println(i);
+		}
+    	System.out.println("niz3");
+    	for (double i : niz3) {
+			System.out.println(i);
+		}
+    	
+    	
     	for (int i = 0; i < niz3.length; i++) {
     		pos=0;
     		max=0;
-    		for (int j = 0; i < niz3.length; j++) {
+    		for (int j = 0; j < niz3.length; j++) {
     			if (niz3[j]>max)
     			{
     				pos=j;

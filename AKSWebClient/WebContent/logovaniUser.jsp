@@ -65,12 +65,16 @@
 	<input type="submit" value="Pogledaj ocene za kupce" style="height:30px;width:300px"> 
 </form>
 	<c:if test="${result==true}">
+		<br>
 		Logovanje je Uspesno!
+		<br>
+		<br>
 	</c:if>
 	
 	<c:if test="${!empty petNajboljih}">
 		<table>
 		5 Najbolje ocenjenih korisnika:
+		<br>
   		<thead><td width="13%">Ime</td><td width="13%">Prezime</td><td width="13%">Email</td></thead>
   			<c:forEach var="k" items="${petNajboljih}">
   			<tr>
