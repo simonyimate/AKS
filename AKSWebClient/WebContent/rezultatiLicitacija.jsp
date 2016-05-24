@@ -27,8 +27,9 @@
 <link href="css/src/css/card.css" rel="stylesheet" type="text/css"/>
 
 </head>
-<body>
-<form action="/AKSWebClient/MainServlet" method="get">
+<body bgcolor="C8D7E3">
+<br>
+<CENTER><form action="/AKSWebClient/MainServlet" method="get">
 	<input type="submit" value="Izlistaj sve ishode licitacije">
 	<input type="hidden" name="type" value="ishodLicitacije">
 	<c:if test="${!empty aukcijeSveVlasnik}"> 
@@ -115,7 +116,10 @@
 </form>
 </form>
 	<form action="/AKSWebClient/logovaniUser.jsp" method="get">
-		<input type="submit" value="NAZAD"> 
+		<input type="submit" value="NAZAD">
+		<br>
+		<br> 
 	</form>
+	</CENTER>
 </body>
 </html>

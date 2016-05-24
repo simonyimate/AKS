@@ -27,8 +27,9 @@
 <link href="css/src/css/card.css" rel="stylesheet" type="text/css"/>
 
 </head>
-<body>
-<form action="/AKSWebClient/MainServlet" method="get">
+<body bgcolor="C8D7E3">
+<br>
+<CENTER><form action="/AKSWebClient/MainServlet" method="get">
 Unesite ime prodavca za koji zelite da vidite komentare:<input type="text" name="prodavac">
 	<input type="submit" value="Prikazi komentare i ocene">
 	<input type="hidden" name="type" value="commProd">
@@ -62,6 +63,9 @@ Unesite ime prodavca za koji zelite da vidite komentare:<input type="text" name=
 </form>
 	<form action="/AKSWebClient/logovaniUser.jsp" method="get">
 		<input type="submit" value="NAZAD"> 
+		<br>
+		<br>
 	</form>
+	</CENTER>
 </body>
 </html>

@@ -25,8 +25,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Prikaz aukcije koja najskorije istice</title>
 </head>
-<body>
-<c:if test="${!empty aukcije}">
+<body bgcolor="C8D7E3">
+<br>
+<CENTER><c:if test="${!empty aukcije}">
 	Ne postoji aukcija koja najskorije istice!
 </c:if>
 	
@@ -50,6 +51,9 @@
   		</c:if>
 	<form action="/AKSWebClient/index.jsp" method="get">
 		<input type="submit" value="NAZAD"> 
+		<br>
+		<br>
 	</form>
+	</CENTER>
 </body>
 </html>
