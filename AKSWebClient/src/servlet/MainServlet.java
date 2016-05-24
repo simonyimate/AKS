@@ -83,6 +83,8 @@ public class MainServlet extends HttpServlet {
 					aukcijeGdeLicitiram=cartBean.aukcijeReportK(result.getIme());
 					aukcijeUspesneVlasnik=cartBean.aukcijeListP(result.getIme());
 					aukcijeUspesneKupac=cartBean.aukcijeListK(result.getIme());
+					List<Akskorisnik> aksovi=cartBean.BestKommentars();
+					request.getSession().setAttribute("petNajboljih", aksovi);
 					request.getSession().setAttribute("aukcijeMoje", aukcijeMoje);
 					request.getSession().setAttribute("aukcijeGdeLicitiram", aukcijeGdeLicitiram);
 					request.getSession().setAttribute("aukcijeUspesneVlasnik", aukcijeUspesneVlasnik);
